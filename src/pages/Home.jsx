@@ -1,18 +1,13 @@
-
+import useFetch from "../useFetch"
 import Header from "../components/Header"
 
 import {products} from "../App.jsx"
-const categories = [
-    {name:"Smartphones",image:"https://lh5.googleusercontent.com/proxy/g0iMN7EBqsBUcN4vxJx9qcBPLVcwwIU541JaxrVUUsirTkol6OqNUJAYpWL-LnOLpY_7RuFLo5W_FHiIPDBps_iJKANH3IDUlVzN6fInXxKACldouh_afNZuQ3b1FS09CrsKWSUCIUwtZFqqic7HzUTa6Kf4-5_a3Mb_8WL7AESKZsBvZVe0yfw_-cOZzUAivLYAmDU"},
-    {name:"Laptops",image:"https://www.atulhost.com/wp-content/uploads/2024/07/best-laptop-brands.jpg"},
-    {name:"Smartwatches",image:"https://www.smartwatchforless.com/wp-content/uploads/2023/07/always-on-display-blog.jpeg"},
-    {name:"Tablets",image:"https://nypost.com/wp-content/uploads/sites/2/2022/09/tabletfeat.jpg?quality=75&strip=all"},
-    {name:"Headphones",image:"https://www.stuff.tv/wp-content/uploads/sites/2/2022/11/Stuff-Best-Headphones-Lead-Image.png?w=1080"},
-    {name:"Monitors",image:"https://image.benq.com/is/image/benqco/monitor-all-series-kv-3-m?$ResponsivePreset$&fmt=png-alpha"}
-]
+
 
 const Home = () => {
     
+  const {data,loading,error} = useFetch("http://localhost:3000/categories")
+  
     
     return(
         <>
@@ -20,12 +15,12 @@ const Home = () => {
        <main className="container">
         <section>
             <div className="row py-4">
-                {categories.map((category)=>(
+                {data? data.map((dataItem)=>(
                     <div className="col-md-2 text-center" >
-                        <img style={{height:"200px"}} className="img-fluid" src={category.image} alt="" />
-                        <p style={{padding:"5px 30px",backgroundColor:"#F4F2DE",color:"#008080",fontSize:"20px"}}>{category.name}</p>
+                        <img style={{height:"200px"}} className="img-fluid" src={dataItem.image} alt="" />
+                        <p style={{padding:"5px 30px",backgroundColor:"#F4F2DE",color:"#008080",fontSize:"20px"}}>{dataItem.name}</p>
                     </div>
-                ))}
+                )):loading&&<h2 style={{color:"#008080",textAlign:"center"}}>Loading Categories..</h2>}
             </div>
         </section>
         <section >
@@ -37,7 +32,7 @@ const Home = () => {
   </div>
   <div className="carousel-inner" >
   <div className="carousel-item active">
-      <img style={{height:"500px"}} src="https://9to5mac.com/wp-content/uploads/sites/6/2021/10/MacBook-Pro-2021.jpg?quality=82&strip=all&w=1024" className="d-block w-100" alt="..."/>
+      <img style={{height:"500px"}} src="https://static.digit.in/default/macbook-air-15-m2-6ab44e29a9.jpeg" className="d-block w-100" alt="..."/>
       <div className="carousel-caption d-none d-md-block">
         <h5 style={{fontSize:"50px",fontWeight:"lighter",color:"white"}} >Apple Macbook Pro</h5>
         
