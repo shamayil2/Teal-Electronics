@@ -1,7 +1,7 @@
 import useFetch from "../useFetch"
 import Header from "../components/Header"
+import {Link} from "react-router-dom"
 
-import {products} from "../App.jsx"
 
 
 const Home = () => {
@@ -16,9 +16,11 @@ const Home = () => {
         <section>
             <div className="row py-4">
                 {data? data.map((dataItem)=>(
-                    <div className="col-md-2 text-center" >
-                        <img style={{height:"200px"}} className="img-fluid" src={dataItem.image} alt="" />
-                        <p style={{padding:"5px 30px",backgroundColor:"#F4F2DE",color:"#008080",fontSize:"20px"}}>{dataItem.name}</p>
+                  
+                    <div key={dataItem._id} className="col-md-2 text-center" >
+                       <Link to={`/products/category/${dataItem._id}`}> <img style={{height:"200px"}} className="img-fluid" src={dataItem.image} alt="" /></Link>
+                      
+                       <Link style={{textDecoration:"none"}} to={`/products/category/${dataItem._id}`}> <p style={{padding:"5px 30px",backgroundColor:"#F4F2DE",color:"#008080",fontSize:"20px"}}>{dataItem.name}</p></Link>
                     </div>
                 )):loading&&<h2 style={{color:"#008080",textAlign:"center"}}>Loading Categories..</h2>}
             </div>
@@ -32,13 +34,6 @@ const Home = () => {
   </div>
   <div className="carousel-inner" >
   <div className="carousel-item active">
-      <img style={{height:"500px"}} src="https://static.digit.in/default/macbook-air-15-m2-6ab44e29a9.jpeg" className="d-block w-100" alt="..."/>
-      <div className="carousel-caption d-none d-md-block">
-        <h5 style={{fontSize:"50px",fontWeight:"lighter",color:"white"}} >Apple Macbook Pro</h5>
-        
-      </div>
-    </div>
-    <div className="carousel-item ">
       
       <img style={{height:"500px"}} src="https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/tile/Apple-iPhone-16-Pro-hero-geo-240909-lp.jpg.og.jpg?202501131558" className="d-block w-100" alt="..."/>
       <div className="carousel-caption d-none d-md-block">
@@ -46,6 +41,14 @@ const Home = () => {
         
       </div>
     </div>
+  <div className="carousel-item ">
+      <img style={{height:"500px"}} src="https://static.digit.in/default/macbook-air-15-m2-6ab44e29a9.jpeg" className="d-block w-100" alt="..."/>
+      <div className="carousel-caption d-none d-md-block">
+        <h5 style={{fontSize:"50px",fontWeight:"lighter",color:"white"}} >Apple Macbook Pro</h5>
+        
+      </div>
+    </div>
+   
     <div className="carousel-item">
       <img style={{height:"500px"}} src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/202210/watch_1.jpg?VersionId=ZQz3s1gN5AApm_VOrR_G4TYJNxm_xwnL&size=690:388" className="d-block w-100" alt="..."/>
       <div className="carousel-caption d-none d-md-block">

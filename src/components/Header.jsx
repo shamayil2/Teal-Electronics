@@ -1,19 +1,19 @@
-
+import {NavLink} from "react-router-dom"
 import "./header.css"
 
 const Header = () => {
 
  return(
     <>
-    <nav className="navbar navbar-expand-lg" style={{backgroundColor:"#F4F2DE"}}>
+    <nav className="navbar navbar-expand-lg bg-body-tertiary" >
   <div className="container"  >
-    <a style={{color:"#008080",fontSize:"30px",fontFamily:"sans-serif"}} className="navbar-brand" href="#">Teal Electronics</a>
+    <NavLink to="/" style={{color:"#008080",fontSize:"30px",fontFamily:"sans-serif"}} className="navbar-brand" href="#">Teal Electronics</NavLink>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>
     <div className="collapse container navbar-collapse" id="navbarSupportedContent" >
-    <form class="d-flex mx-auto" role="search">
-        <input style={{backgroundColor:"#F4F2DE",border:"2px solid #008080",width:"500px"}} class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+    <form className="d-flex mx-auto" role="search">
+        <input style={{border:"2px solid #008080",width:"500px"}} className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
         
       </form>
       <ul className="navbar-nav ms-auto">
