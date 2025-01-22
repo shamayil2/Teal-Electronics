@@ -5,6 +5,7 @@ import "bootstrap/dist/js/bootstrap.min.js"
 import {createBrowserRouter,RouterProvider} from "react-router-dom"
 import Home from "./pages/Home"
 import App from './App.jsx'
+import AllProducts from "./pages/AllProducts"
 import CategoryProducts from "./pages//CategoryProducts"
 
 const router = createBrowserRouter([{
@@ -14,7 +15,9 @@ const router = createBrowserRouter([{
 {
   path:"/products/category/:categoryId",
   element:<CategoryProducts/>
-}
+},
+{path:"/products",
+element:<AllProducts/>}
 ]
 
 )

@@ -25,6 +25,7 @@ const Home = () => {
                 )):loading&&<h2 style={{color:"#008080",textAlign:"center"}}>Loading Categories..</h2>}
             </div>
         </section>
+        <Link style={{textDecoration:"none"}} to="/products"><h1 style={{color:"#008080",textAlign:"center"}}>Browse All Products</h1></Link>
         <section >
         <div id="carouselExample"  className="carousel slide py-4" >
         <div className="carousel-indicators">
