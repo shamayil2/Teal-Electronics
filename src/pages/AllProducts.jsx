@@ -1,5 +1,5 @@
 import Header from "../components/Header"
-import {useState,useEffect} from "react"
+import {useState,useEffect,useRef} from "react"
 
 import useFetch from "../useFetch"
 const AllProducts = () => {
@@ -8,7 +8,16 @@ const AllProducts = () => {
     let [error, setError] = useState(null);
     let [rating,setRating] = useState(0)
     let [checkedData,setCheckedData] = useState([])
-    
+    let [sort,setSort] = useState("")
+    const filterRef1 = useRef()
+    const filterRef2 = useRef()
+    const filterRef3 = useRef()
+    const filterRef4 = useRef()
+    const filterRef5 = useRef()
+    const filterRef6 = useRef()
+    const sortRef1 = useRef()
+    const sortRef2 = useRef()
+
       useEffect(() => {
             setLoading(true);
             fetch("http://localhost:3000/products")
@@ -26,23 +35,37 @@ const AllProducts = () => {
     let [filteredProducts,setFilteredProducts] = useState([])
 
     function ratingHandler(event){
+        let sortedArr;
         const value = event.target.value
         const productNew = checkedData.length>0? data.filter((product)=>checkedData.includes(product.category.name)
         && product.rating>value):data.filter((product)=> product.rating>=value)
-        setFilteredProducts([...productNew])
+        if(sort.length>0){
+          sort==="ascending"?  sortedArr = productNew.sort((a,b)=>a.price-b.price): sortedArr = productNew.sort((a,b)=>b.price-a.price)
+            setFilteredProducts(sortedArr)
+        }else{
+            setFilteredProducts([...productNew])
+        }
+       
         setRating(value)
 
     }
    
     function filterHandler(event){
-        
+        let sortedArr;
         const checked = event.target.checked
+        console.log(checked)
         const value = event.target.value
         if(checked){
             const checkedArr = [...checkedData,value]
             let productNew = data.filter((product)=>checkedArr.includes(product.category.name) && product.rating>rating)
             setCheckedData([...checkedArr])
-            setFilteredProducts(productNew)
+            if(sort.length>0){
+                sort==="ascending"?  sortedArr = productNew.sort((a,b)=>a.price-b.price): sortedArr = productNew.sort((a,b)=>b.price-a.price)
+                  setFilteredProducts(sortedArr)
+              }else{
+                  setFilteredProducts([...productNew])
+              }
+            // setFilteredProducts(productNew)
         }else{
            
             let filteredIndexes = []
@@ -55,16 +78,50 @@ const AllProducts = () => {
 
             const productNew = checkedData.length>0?data.filter((product)=>checkedData.includes(product.category.name) 
              && product.rating>rating):data.filter((product)=>product.rating>rating)
-
-            setFilteredProducts([...productNew])
+             if(sort.length>0){
+                sort==="ascending"?  sortedArr = productNew.sort((a,b)=>a.price-b.price): sortedArr = productNew.sort((a,b)=>b.price-a.price)
+                  setFilteredProducts(sortedArr)
+              }else{
+                  setFilteredProducts([...productNew])
+              }
+            // setFilteredProducts([...productNew])
             setCheckedData([...checkedData])
           
         }
 
     }
-
     
- 
+    function sortHandler(event){
+        let sortedArr;
+        const value = event.target.value
+        const productNew = checkedData.length>0? data.filter((product)=>checkedData.includes(product.category.name)
+        && product.rating>rating):data.filter((product)=> product.rating>=rating)
+        
+        value==="ascending"?  sortedArr = productNew.sort((a,b)=>a.price-b.price): sortedArr = productNew.sort((a,b)=>b.price-a.price)
+            setFilteredProducts([...sortedArr])
+        
+        setSort(value)
+    }
+
+    function buttonHandler(){
+        setFilteredProducts([])
+        setRating(0)
+       
+        setCheckedData([])
+        filterRef1.current.checked=false
+        filterRef2.current.checked=false
+        filterRef3.current.checked=false
+        filterRef4.current.checked=false
+        filterRef5.current.checked=false
+        filterRef6.current.checked=false
+        sortRef1.current.checked = false
+        sortRef2.current.checked = false
+        
+    }
+
+    console.log(checkedData)
+    console.log(filteredProducts)
+    
     return(
         <>
         <Header/>
@@ -72,12 +129,12 @@ const AllProducts = () => {
             <div className="col-md-3 p-4">
                 <div className="container">
                 <h4 style={{color:"#008080"}}>Filter By Category</h4>
-                <input type="checkbox" value="Smartphones" onClick={filterHandler} /> Smartphones<br/>
-                <input type="checkbox" value="Laptops" onClick={filterHandler}/> Laptops<br/>
-                <input type="checkbox" value="Smartwatches" onClick={filterHandler}/> Smartwatches<br/>
-                <input type="checkbox" value="Tablets" onClick={filterHandler}/> Tablets<br/>
-                <input type="checkbox" value="Monitors" onClick={filterHandler}/> Monitors<br/>
-                <input type="checkbox" value="Headphones" onClick={filterHandler}/> Headphones<br/>
+                <input type="checkbox" ref={filterRef1} value="Smartphones" onClick={filterHandler} /> Smartphones<br/>
+                <input type="checkbox" ref={filterRef2} value="Laptops" onClick={filterHandler}/> Laptops<br/>
+                <input type="checkbox" ref={filterRef3} value="Smartwatches" onClick={filterHandler}/> Smartwatches<br/>
+                <input type="checkbox" ref={filterRef4} value="Tablets" onClick={filterHandler}/> Tablets<br/>
+                <input type="checkbox" ref={filterRef5} value="Monitors" onClick={filterHandler}/> Monitors<br/>
+                <input type="checkbox" ref={filterRef6} value="Headphones" onClick={filterHandler}/> Headphones<br/>
                 </div>
                 
                 <div className="py-4 container">
@@ -85,6 +142,15 @@ const AllProducts = () => {
                     <input type="range" min="0" max="5" value={rating} onChange={ratingHandler} />
                     <p>Minimum Rating Selected:{rating}</p>
                 </div>
+                <div className="py-4 container">
+                    <h4 style={{color:"#008080"}}>Sort By Price:</h4>
+                    <input type="radio" name="sort" ref={sortRef1} value="ascending" onChange={sortHandler} /> <label htmlFor="">Low To High</label><br/>
+                    <input type="radio" name="sort" ref={sortRef2} value="descending" onChange={sortHandler}/> <label htmlFor="">High To Low</label>
+                </div>
+                <div className="py-4 container">
+                <button onClick={buttonHandler} style={{padding:"0px 20px",backgroundColor:"#008080",color:"#F4F2DE"}}>Clear Filters</button>
+                </div>
+                
 
             </div>
             <div className="col-md-9">
