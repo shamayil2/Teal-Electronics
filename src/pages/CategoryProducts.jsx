@@ -9,10 +9,10 @@ const CategoryProducts = () => {
     console.log(categoryObj.categoryId)
     const {data,loading,error} = useFetch(`http://localhost:3000/products/category/${categoryObj.categoryId}`)
     console.log(data)
-    const [inCard,setInCard] = useState([])
+    const [inCart,setinCart] = useState([])
     
     const clickHandler = (productId) => {
-        setInCard([...inCard,productId])
+        setinCart([...inCart,productId])
     }
     
     return(
@@ -27,7 +27,7 @@ const CategoryProducts = () => {
            <div className="col-md-3 text-center">
                <img style={{height:"200px"}} src={product.productImage} alt="" />
                <p style={{padding:"10px",backgroundColor:"#F4F2DE",color:"#008080"}}>{product.title}<br/>Price: ${product.price}</p>
-               {inCard.includes(product._id)?<Link to="/"><button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#F4F2DE",color:"#008080"}}>Go To Cart</button>
+               {inCart.includes(product._id)?<Link to="/"><button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#F4F2DE",color:"#008080"}}>Go To Cart</button>
                </Link>:<button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  onClick={(id)=>clickHandler(product._id)}>Add to Cart</button>}
                
                

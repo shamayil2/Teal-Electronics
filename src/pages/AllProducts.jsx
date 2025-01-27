@@ -1,6 +1,6 @@
 import Header from "../components/Header"
 import {useState,useEffect,useRef} from "react"
-
+import {Link} from "react-router-dom"
 import useFetch from "../useFetch"
 const AllProducts = () => {
     let [data, setData] = useState(null);
@@ -157,23 +157,26 @@ const AllProducts = () => {
             <div className="row container py-4">
             {filteredProducts.length>0 ?filteredProducts.map((product)=>(
                 <div key={product._id} className="col-md-3 p-3 text-center">
-                    <img className="img-fluid" style={{height:"200px"}} src={product.productImage} alt="" />
+                  <Link to={`/products/productdetails/${product._id}`}> <img className="img-fluid" style={{height:"200px"}} src={product.productImage} alt="" /></Link> 
                     <div style={{backgroundColor:"#F4F2DE",color:"#008080",padding:"0px 10px"}}>
                     <p style={{fontSize:"20px"}}> {product.title}</p> <span>Rating: {product.rating}</span><br/>
                     <b>Price: ${product.price}</b>
                     </div>
-                
-                </div>
+                    <button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  onClick={(id)=>clickHandler(product._id)}>Add to Cart</button>
+                    <button></button>
+                </div>  
                 
             )):
             
             data && checkedData.length===0 && rating===0?data.map((product)=>(
                 <div key={product._id} className="col-md-3 p-3 text-center">
-                    <img className="img-fluid" style={{height:"200px"}} src={product.productImage} alt="" />
+                  <Link to={`/products/productdetails/${product._id}`}>   <img className="img-fluid" style={{height:"200px"}} src={product.productImage} alt="" /></Link>
                     <div style={{backgroundColor:"#F4F2DE",color:"#008080",padding:"0px 10px"}}>
                     <p style={{fontSize:"20px"}}> {product.title}</p> <span>Rating: {product.rating}</span><br/>
                     <b>Price: ${product.price}</b>
                     </div>
+                    <button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  onClick={(id)=>clickHandler(product._id)}>Add to Cart</button>
+
                     
                     
                 </div>
