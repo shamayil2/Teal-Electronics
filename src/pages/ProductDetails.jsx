@@ -24,7 +24,7 @@ const clickHandler = () => {
                 <div className="row">
                 <div className="col-md-3 container text-center">
                 <img className="img-fluid" src={data.productImage} alt="" />
-                <button style={{padding:"0px 80px",color:"#008080",backgroundColor:"#F4f2DE",margin:"10px 0px"}}>Buy Now</button><br/>
+                <button style={{padding:"0px 80px",color:"#008080",backgroundColor:"#F4f2DE",margin:"10px 0px"}}>Add to Wishlist</button><br/>
                 <button style={{padding:"0px 80px",color:"#F4F2DE",backgroundColor:"#008080"}}>Add to Cart</button>  
                 
                 </div>

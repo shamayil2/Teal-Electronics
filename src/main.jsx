@@ -2,34 +2,49 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.min.js"
+import {useState} from "react"
 import {createBrowserRouter,RouterProvider} from "react-router-dom"
 import Home from "./pages/Home"
 import App from './App.jsx'
 import AllProducts from "./pages/AllProducts"
 import CategoryProducts from "./pages/CategoryProducts"
 import ProductDetails from "./pages/ProductDetails"
-const router = createBrowserRouter([{
-  path:"/",
-  element:<Home/>
-},
-{
-  path:"/products/category/:categoryId",
-  element:<CategoryProducts/>
-},
-{path:"/products",
-element:<AllProducts/>},
-{
-  path:"/products/productdetails/:productId",
-  element:<ProductDetails/>
-}
-]
+import Wishlist from "./pages/Wishlist"
 
-)
+function Root(){
+  const [wishlist,setWishlist] = useState({})
+  const router = createBrowserRouter([{
+    path:"/",
+    element:<Home/>
+  },
+  {
+    path:"/products/category/:categoryId",
+    element:<CategoryProducts setWishlist={setWishlist} wishlist={wishlist}/>
+  },
+  {path:"/products",
+  element:<AllProducts setWishlist={setWishlist} wishlist={wishlist}/>},
+  {
+    path:"/products/productdetails/:productId",
+    element:<ProductDetails/>
+  },{
+    path:"/products/wishlist",
+    element:<Wishlist setWishlist={setWishlist} wishlist={wishlist}/>
+  }
+  ]
+  
+  )
+
+  return <RouterProvider router={router} />
+
+}
+
+
 
 
 
 createRoot(document.getElementById('root')).render(
+
   <StrictMode>
-    <RouterProvider router={router}/>
+    <Root/>
   </StrictMode>,
 )

@@ -2,7 +2,7 @@ import Header from "../components/Header"
 import {useState,useEffect,useRef} from "react"
 import {Link} from "react-router-dom"
 import useFetch from "../useFetch"
-const AllProducts = () => {
+const AllProducts = ({setWishlist,wishlist}) => {
     let [data, setData] = useState(null);
     let [loading, setLoading] = useState(false);
     let [error, setError] = useState(null);
@@ -121,10 +121,17 @@ const AllProducts = () => {
 
     console.log(checkedData)
     console.log(filteredProducts)
+
+    function wishlistHandler(productId){
+        setWishlist({...wishlist,[productId]:1})
+    }
+
+    console.log(wishlist)
     
     return(
         <>
         <Header/>
+       
         <div className="row">
             <div className="col-md-3 p-4">
                 <div className="container">
@@ -163,7 +170,8 @@ const AllProducts = () => {
                     <b>Price: ${product.price}</b>
                     </div>
                     <button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  onClick={(id)=>clickHandler(product._id)}>Add to Cart</button>
-                    <button></button>
+                    <button onClick={(id)=>wishlistHandler(product._id)} className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  >Add to Wishlist</button>
+
                 </div>  
                 
             )):
@@ -176,6 +184,7 @@ const AllProducts = () => {
                     <b>Price: ${product.price}</b>
                     </div>
                     <button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  onClick={(id)=>clickHandler(product._id)}>Add to Cart</button>
+                    <button onClick={(id)=>wishlistHandler(product._id)} className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  >Add to Wishlist</button>
 
                     
                     
