@@ -2,12 +2,13 @@ import Header from "../components/Header"
 import {useState,useEffect,useRef} from "react"
 import {Link} from "react-router-dom"
 import useFetch from "../useFetch"
-const AllProducts = ({setWishlist,wishlist}) => {
+const AllProducts = ({setWishlist,wishlist,inWishlist,setInWishlist}) => {
     let [data, setData] = useState(null);
     let [loading, setLoading] = useState(false);
     let [error, setError] = useState(null);
     let [rating,setRating] = useState(0)
     let [checkedData,setCheckedData] = useState([])
+  
     let [sort,setSort] = useState("")
     const filterRef1 = useRef()
     const filterRef2 = useRef()
@@ -123,7 +124,21 @@ const AllProducts = ({setWishlist,wishlist}) => {
     console.log(filteredProducts)
 
     function wishlistHandler(productId){
-        setWishlist({...wishlist,[productId]:1})
+        
+        
+        if(inWishlist.includes(productId)){
+            const index = inWishlist.indexOf(productId)
+            inWishlist.splice(index,1)
+            setInWishlist([...inWishlist])
+            delete wishlist[productId]
+        }else{
+            setInWishlist([...inWishlist,productId])
+            setWishlist({...wishlist,[productId]:1})
+        }
+       
+
+
+
     }
 
     console.log(wishlist)
@@ -170,7 +185,7 @@ const AllProducts = ({setWishlist,wishlist}) => {
                     <b>Price: ${product.price}</b>
                     </div>
                     <button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  onClick={(id)=>clickHandler(product._id)}>Add to Cart</button>
-                    <button onClick={(id)=>wishlistHandler(product._id)} className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  >Add to Wishlist</button>
+                    {inWishlist.includes(product._id)?(<button onClick={(id)=>wishlistHandler(product._id)} className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#F4F2DE",color:"#008080"}} >Remove from Wishlist</button>) : (<button onClick={(id)=>wishlistHandler(product._id)} className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  >Add to Wishlist</button>) } 
 
                 </div>  
                 
@@ -184,7 +199,7 @@ const AllProducts = ({setWishlist,wishlist}) => {
                     <b>Price: ${product.price}</b>
                     </div>
                     <button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  onClick={(id)=>clickHandler(product._id)}>Add to Cart</button>
-                    <button onClick={(id)=>wishlistHandler(product._id)} className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  >Add to Wishlist</button>
+                   {inWishlist.includes(product._id)?(<button onClick={(id)=>wishlistHandler(product._id)} className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#F4F2DE",color:"#008080"}} >Remove from Wishlist</button>) : (<button onClick={(id)=>wishlistHandler(product._id)} className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  >Add to Wishlist</button>) } 
 
                     
                     
