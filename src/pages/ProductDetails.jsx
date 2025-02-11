@@ -3,7 +3,7 @@ import useFetch from "../useFetch"
 import Header from "../components/Header"
 import "./styles.css"
 import {useState} from "react"
-const ProductDetails = () => {
+const ProductDetails = ({setWishlist,wishlist,inWishlist,setInWishlist}) => {
 const productId = useParams()
 console.log(productId.productId)
 const {data,loading,error} = useFetch(`http://localhost:3000/products/productdetails/${productId.productId}`)
@@ -13,6 +13,14 @@ const clickHandler = () => {
         setCount(count-1)
     }
 }
+
+function wishlistHandler(productId){
+
+setWishlist({...wishlist,[productId]:1})
+
+
+}
+
     return(
         <>
         <Header/>
@@ -24,7 +32,7 @@ const clickHandler = () => {
                 <div className="row">
                 <div className="col-md-3 container text-center">
                 <img className="img-fluid" src={data.productImage} alt="" />
-                <button style={{padding:"0px 80px",color:"#008080",backgroundColor:"#F4f2DE",margin:"10px 0px"}}>Add to Wishlist</button><br/>
+                <button onClick={(id)=>wishlistHandler(data._id)} style={{padding:"0px 80px",color:"#F4F2DE",backgroundColor:"#008080",margin:"10px 0px"}}>Add to Wishlist</button><br/>
                 <button style={{padding:"0px 80px",color:"#F4F2DE",backgroundColor:"#008080"}}>Add to Cart</button>  
                 
                 </div>

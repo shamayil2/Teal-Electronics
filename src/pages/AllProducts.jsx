@@ -142,7 +142,7 @@ const AllProducts = ({setWishlist,wishlist,inWishlist,setInWishlist}) => {
     }
 
     console.log(wishlist)
-    
+    console.log(inWishlist)
     return(
         <>
         <Header/>

@@ -27,7 +27,7 @@ function Root(){
   element:<AllProducts setWishlist={setWishlist} wishlist={wishlist} inWishlist={inWishlist} setInWishlist={setInWishlist}/>},
   {
     path:"/products/productdetails/:productId",
-    element:<ProductDetails/>
+    element:<ProductDetails setWishlist={setWishlist} wishlist={wishlist} inWishlist={inWishlist} setInWishlist={setInWishlist}/>
   },{
     path:"/products/wishlist",
     element:<Wishlist setWishlist={setWishlist} wishlist={wishlist} />
