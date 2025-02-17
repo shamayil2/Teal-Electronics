@@ -7,7 +7,7 @@ import {Link} from "react-router-dom"
 const Home = () => {
     
   const {data,loading,error} = useFetch("http://localhost:3000/categories")
-  
+  console.log(data)
     
     return(
         <>
