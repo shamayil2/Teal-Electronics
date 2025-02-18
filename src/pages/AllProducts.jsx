@@ -50,7 +50,7 @@ const AllProducts = ({setWishlist,wishlist,inWishlist,setInWishlist}) => {
         setRating(value)
 
     }
-   
+//    Need to understand below filterHandler fully 
     function filterHandler(event){
         let sortedArr;
         const checked = event.target.checked

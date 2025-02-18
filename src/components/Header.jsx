@@ -17,7 +17,7 @@ const Header = () => {
         
       </form>
       <ul className="navbar-nav ms-auto">
-        <li className="nav-item"><a  className="nav-link" href=""><img width="40" height="40" src="https://img.icons8.com/ios/50/shopping-cart--v1.png" alt="shopping-cart--v1"/></a></li>
+       <NavLink to="/products/cart"><li className="nav-item"><a  className="nav-link" href=""><img width="40" height="40" src="https://img.icons8.com/ios/50/shopping-cart--v1.png" alt="shopping-cart--v1"/></a></li></NavLink> 
        <NavLink to="/products/wishlist"> <li className="nav-item"><a style={{color:"#008080",fontSize:"20px"}} className="nav-link" href=""><img width="40" height="40" src="https://img.icons8.com/ios/50/like--v1.png" alt="like--v1"/></a></li></NavLink>
       </ul>
     

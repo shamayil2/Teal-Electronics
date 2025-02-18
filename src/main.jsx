@@ -5,7 +5,7 @@ import "bootstrap/dist/js/bootstrap.min.js"
 import {useState} from "react"
 import {createBrowserRouter,RouterProvider} from "react-router-dom"
 import Home from "./pages/Home"
-
+import Cart from "./pages/Cart"
 import App from './App.jsx'
 import AllProducts from "./pages/AllProducts"
 import CategoryProducts from "./pages/CategoryProducts"
@@ -13,6 +13,7 @@ import ProductDetails from "./pages/ProductDetails"
 import Wishlist from "./pages/Wishlist"
 
 function Root(){
+  const [idsInCartObj,setIdsInCartObj] = useState({})
   const [wishlist,setWishlist] = useState({})
   const [inWishlist,setInWishlist] = useState([])
   const router = createBrowserRouter([{
@@ -30,8 +31,11 @@ function Root(){
     element:<ProductDetails setWishlist={setWishlist} wishlist={wishlist} inWishlist={inWishlist} setInWishlist={setInWishlist}/>
   },{
     path:"/products/wishlist",
-    element:<Wishlist setWishlist={setWishlist} wishlist={wishlist} />
+    element:<Wishlist setWishlist={setWishlist} wishlist={wishlist} idsInCartObj={idsInCartObj} setIdsInCartObj={setIdsInCartObj}/>
+  },{path:"/products/cart",
+    element:<Cart idsInCartObj={idsInCartObj} setIdsInCartObj={setIdsInCartObj}/>
   }
+
   ]
   
   )
