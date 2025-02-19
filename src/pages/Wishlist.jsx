@@ -12,7 +12,7 @@ const Wishlist = ({setWishlist,wishlist,idsInCartObj,setIdsInCartObj}) => {
     //Function to add the product id in object containing the product ids which are in cart.
     function addIdToCartObj(productId){
       if(productId in idsInCartObj){
-        
+        setIdsInCartObj({...idsInCartObj,[productId]:idsInCartObj[productId]+1})
       }else{
         setIdsInCartObj({...idsInCartObj,[productId]:1})
       }
