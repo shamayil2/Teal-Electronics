@@ -25,7 +25,7 @@ function Root(){
     element:<CategoryProducts setWishlist={setWishlist} wishlist={wishlist} inWishlist={inWishlist} setInWishlist={setInWishlist}/>
   },
   {path:"/products",
-  element:<AllProducts setWishlist={setWishlist} wishlist={wishlist} inWishlist={inWishlist} setInWishlist={setInWishlist}/>},
+  element:<AllProducts setWishlist={setWishlist} wishlist={wishlist} inWishlist={inWishlist} setInWishlist={setInWishlist} idsInCartObj={idsInCartObj} setIdsInCartObj={setIdsInCartObj}/>},
   {
     path:"/products/productdetails/:productId",
     element:<ProductDetails setWishlist={setWishlist} wishlist={wishlist} inWishlist={inWishlist} setInWishlist={setInWishlist}/>
@@ -33,7 +33,7 @@ function Root(){
     path:"/products/wishlist",
     element:<Wishlist setWishlist={setWishlist} wishlist={wishlist} idsInCartObj={idsInCartObj} setIdsInCartObj={setIdsInCartObj}/>
   },{path:"/products/cart",
-    element:<Cart idsInCartObj={idsInCartObj} setIdsInCartObj={setIdsInCartObj}/>
+    element:<Cart idsInCartObj={idsInCartObj} setIdsInCartObj={setIdsInCartObj} setWishlist={setWishlist} wishlist={wishlist}/>
   }
 
   ]

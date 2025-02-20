@@ -2,7 +2,7 @@ import Header from "../components/Header"
 import {useState,useEffect,useRef} from "react"
 import {Link} from "react-router-dom"
 import useFetch from "../useFetch"
-const AllProducts = ({setWishlist,wishlist,inWishlist,setInWishlist}) => {
+const AllProducts = ({setWishlist,wishlist,inWishlist,setInWishlist,idsInCartObj,setIdsInCartObj}) => {
     let [data, setData] = useState(null);
     let [loading, setLoading] = useState(false);
     let [error, setError] = useState(null);
@@ -141,6 +141,16 @@ const AllProducts = ({setWishlist,wishlist,inWishlist,setInWishlist}) => {
 
     }
 
+    function addIdToCartObj(productId){
+
+        if(productId in idsInCartObj){
+            return;
+        }else{
+            setIdsInCartObj({...idsInCartObj,[productId]:1})
+        }
+
+    }
+
     console.log(wishlist)
     console.log(inWishlist)
     return(
@@ -184,7 +194,7 @@ const AllProducts = ({setWishlist,wishlist,inWishlist,setInWishlist}) => {
                     <p style={{fontSize:"20px"}}> {product.title}</p> <span>Rating: {product.rating}</span><br/>
                     <b>Price: ${product.price}</b>
                     </div>
-                    <button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  onClick={(id)=>clickHandler(product._id)}>Add to Cart</button>
+                   {product._id in idsInCartObj?<button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#F4F2DE",color:"#008080"}}  onClick={(id)=>addIdToCartObj(product._id)}>Go to Cart</button> :<button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  onClick={(id)=>addIdToCartObj(product._id)}>Add to Cart</button>}
                     {inWishlist.includes(product._id)?(<button onClick={(id)=>wishlistHandler(product._id)} className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#F4F2DE",color:"#008080"}} >Remove from Wishlist</button>) : (<button onClick={(id)=>wishlistHandler(product._id)} className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  >Add to Wishlist</button>) } 
 
                 </div>  
@@ -198,8 +208,8 @@ const AllProducts = ({setWishlist,wishlist,inWishlist,setInWishlist}) => {
                     <p style={{fontSize:"20px"}}> {product.title}</p> <span>Rating: {product.rating}</span><br/>
                     <b>Price: ${product.price}</b>
                     </div>
-                    <button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  onClick={(id)=>clickHandler(product._id)}>Add to Cart</button>
-                   {inWishlist.includes(product._id)?(<button onClick={(id)=>wishlistHandler(product._id)} className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#F4F2DE",color:"#008080"}} >Remove from Wishlist</button>) : (<button onClick={(id)=>wishlistHandler(product._id)} className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  >Add to Wishlist</button>) } 
+                    {product._id in idsInCartObj?<button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#F4F2DE",color:"#008080"}}  onClick={(id)=>addIdToCartObj(product._id)}>Go to Cart</button> :<button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  onClick={(id)=>addIdToCartObj(product._id)}>Add to Cart</button>}
+                    {inWishlist.includes(product._id)?(<button onClick={(id)=>wishlistHandler(product._id)} className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#F4F2DE",color:"#008080"}} >Remove from Wishlist</button>) : (<button onClick={(id)=>wishlistHandler(product._id)} className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  >Add to Wishlist</button>) } 
 
                     
                     
