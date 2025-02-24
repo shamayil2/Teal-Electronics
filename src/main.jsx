@@ -11,11 +11,12 @@ import AllProducts from "./pages/AllProducts"
 import CategoryProducts from "./pages/CategoryProducts"
 import ProductDetails from "./pages/ProductDetails"
 import Wishlist from "./pages/Wishlist"
-
+import UserProfile from "./pages/UserProfile"
 function Root(){
   const [idsInCartObj,setIdsInCartObj] = useState({})
   const [wishlist,setWishlist] = useState({})
   const [inWishlist,setInWishlist] = useState([])
+  const [addressArr,setAddressArr] = useState(["121 Street 3,South Delhi, New Delhi 110025, India"])
   const router = createBrowserRouter([{
     path:"/",
     element:<Home/>
@@ -34,6 +35,9 @@ function Root(){
     element:<Wishlist setWishlist={setWishlist} wishlist={wishlist} idsInCartObj={idsInCartObj} setIdsInCartObj={setIdsInCartObj}/>
   },{path:"/products/cart",
     element:<Cart idsInCartObj={idsInCartObj} setIdsInCartObj={setIdsInCartObj} setWishlist={setWishlist} wishlist={wishlist}/>
+  },{
+    path:"/userprofile",
+    element:<UserProfile addressArr={addressArr} setAddressArr={setAddressArr}/>
   }
 
   ]

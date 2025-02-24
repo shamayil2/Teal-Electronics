@@ -19,6 +19,7 @@ const Header = () => {
       <ul className="navbar-nav ms-auto">
        <NavLink to="/products/cart"><li className="nav-item"><a  className="nav-link" href=""><img width="40" height="40" src="https://img.icons8.com/ios/50/shopping-cart--v1.png" alt="shopping-cart--v1"/></a></li></NavLink> 
        <NavLink to="/products/wishlist"> <li className="nav-item"><a style={{color:"#008080",fontSize:"20px"}} className="nav-link" href=""><img width="40" height="40" src="https://img.icons8.com/ios/50/like--v1.png" alt="like--v1"/></a></li></NavLink>
+      <NavLink to="/userprofile"> <li className="nav-item"><a className="nav-link" href=""><img style={{height:"40px",width:"40px"}} src="https://img.icons8.com/?size=100&id=fUUEbUbXhzOA&format=png&color=000000" alt="" /></a></li></NavLink>
       </ul>
     
     </div>
