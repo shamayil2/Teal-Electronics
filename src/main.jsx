@@ -17,6 +17,7 @@ function Root(){
   const [wishlist,setWishlist] = useState({})
   const [inWishlist,setInWishlist] = useState([])
   const [addressArr,setAddressArr] = useState(["121 Street 3,South Delhi, New Delhi 110025, India"])
+  const [placedOrderArr,setPlacedOrderArr] = useState([])
   const router = createBrowserRouter([{
     path:"/",
     element:<Home/>
@@ -34,10 +35,10 @@ function Root(){
     path:"/products/wishlist",
     element:<Wishlist setWishlist={setWishlist} wishlist={wishlist} idsInCartObj={idsInCartObj} setIdsInCartObj={setIdsInCartObj}/>
   },{path:"/products/cart",
-    element:<Cart idsInCartObj={idsInCartObj} setIdsInCartObj={setIdsInCartObj} setWishlist={setWishlist} wishlist={wishlist}/>
+    element:<Cart idsInCartObj={idsInCartObj} setIdsInCartObj={setIdsInCartObj} setWishlist={setWishlist} wishlist={wishlist} placedOrderArr={placedOrderArr} setPlacedOrderArr={setPlacedOrderArr}/>
   },{
     path:"/userprofile",
-    element:<UserProfile addressArr={addressArr} setAddressArr={setAddressArr}/>
+    element:<UserProfile addressArr={addressArr} setAddressArr={setAddressArr} placedOrderArr={placedOrderArr} setPlacedOrderArr={setPlacedOrderArr}/>
   }
 
   ]
