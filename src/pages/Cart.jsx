@@ -1,6 +1,6 @@
 import Header from "../components/Header"
 import useFetch from "../useFetch"
-const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist}) => {
+const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist,placedOrderArr,setPlacedOrderArr}) => {
     console.log(idsInCartObj)
     const {data,loading,error} = useFetch("http://localhost:3000/products")
     function increaseQuantityInCart(productId){
@@ -28,6 +28,15 @@ const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist}) => {
             setWishlist({...wishlist,[productId]:1})
         }
     }
+
+    function placeOrderFn(){
+
+        setPlacedOrderArr({...idsInCartObj})
+        setIdsInCartObj({})
+        alert("Order Placed Successfully!")
+
+    }
+    console.log(placedOrderArr)
 
     console.log(wishlist)
 
@@ -62,7 +71,7 @@ const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist}) => {
             <hr/>
             <h5 className="fw-normal">Total Price: Rs.{data && data.filter((product)=>product._id in idsInCartObj ).reduce((acc,curr)=>(curr.originalPrice * idsInCartObj[curr._id]) + acc,0) + 500}</h5>
             <hr/>
-            <button style={{padding:"5px 80px"}} className="btn btn-primary">Place Order</button>
+            <button onClick={()=>placeOrderFn()} style={{padding:"5px 80px"}} className="btn btn-primary">Place Order</button>
         </div>
         </div>
        

@@ -17,7 +17,7 @@ function Root(){
   const [wishlist,setWishlist] = useState({})
   const [inWishlist,setInWishlist] = useState([])
   const [addressArr,setAddressArr] = useState(["121 Street 3,South Delhi, New Delhi 110025, India"])
-  const [placedOrderArr,setPlacedOrderArr] = useState([])
+  const [placedOrderArr,setPlacedOrderArr] = useState({})
   const router = createBrowserRouter([{
     path:"/",
     element:<Home/>

@@ -1,10 +1,12 @@
 import Header from "../components/Header";
 import {useState} from "react"
-const UserProfile = ({addressArr,setAddressArr}) => {
+import useFetch from "../useFetch"
+const UserProfile = ({addressArr,setAddressArr,placedOrderArr,setPlacedOrderArr}) => {
     const [userProfileBar,setUserProfileBar] = useState(true)
     const [addressBar,setAddressBar] = useState(false)
     const [orderHistoryBar,setOrderHistoryBar] = useState(false)
     const [addressTextarea,setAddressTextarea] = useState("")
+    const { data, loading, error } = useFetch("http://localhost:3000/products")
     function addressBarBtn(){
         setAddressBar(true)
         setOrderHistoryBar(false)
@@ -37,9 +39,9 @@ const UserProfile = ({addressArr,setAddressArr}) => {
           <div className="col-md-3">
             <div class="card" >
               <ul class="list-group list-group-flush">
-                <li class="list-group-item bg-dark "><button onClick={()=>userProfileBarBtn()} className="btn text-light">User Profile</button></li>
-                <li class="list-group-item"><button onClick={()=>addressBarBtn()} className="btn ">Add Address</button></li>
-                <li class="list-group-item "><button onClick={()=>orderHistoryBarBtn()} className="btn ">Order History</button></li>
+                <li class={userProfileBar ?"list-group-item bg-dark ":"list-group-item"}><button onClick={()=>userProfileBarBtn()} className={userProfileBar? "btn text-light":"btn"}>User Profile</button></li>
+                <li class={addressBar ?"list-group-item bg-dark ":"list-group-item"}><button onClick={()=>addressBarBtn()} className={addressBar? "btn text-light":"btn"}>Add Address</button></li>
+                <li class={orderHistoryBar ?"list-group-item bg-dark ":"list-group-item"}><button onClick={()=>orderHistoryBarBtn()} className={orderHistoryBar? "btn text-light":"btn"}>Order History</button></li>
               </ul>
             </div>
           </div>
@@ -80,10 +82,23 @@ const UserProfile = ({addressArr,setAddressArr}) => {
               <br/>
               <button onClick={()=>addNewAddressFn()} style={{padding:"5px 20px",backgroundColor:"#008080",border:"1px solid #008080",color:"#F4F2DE"}}>Add Address</button>
           </>}
-              {orderHistoryBar && <>
+              {orderHistoryBar && data? <>
                 <h4 className="fw-normal">Order History</h4>
-                
-              </>}
+                  <ul>
+                    {data.filter((product)=>product._id in placedOrderArr).map((product)=> (
+
+                      <>
+                       <li>
+                       <h4 className="fw-light">{product.title}<br/>  <span style={{fontSize:"16px"}}>Price: {product.price}</span><br/>  <span style={{fontSize:"16px"}}>Quantity: {placedOrderArr[product._id]}</span></h4> <br />
+                        
+                        </li> 
+                      </>
+
+                    ))}
+
+                  </ul> 
+
+              </>: loading && <p>  Loading Orders </p>}
 
           </div>
         </div>
