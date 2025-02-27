@@ -1,8 +1,10 @@
 import Header from "../components/Header"
 import useFetch from "../useFetch"
-const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist,placedOrderArr,setPlacedOrderArr}) => {
+import {useState} from "react"
+const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist,placedOrderArr,setPlacedOrderArr,addressArr, setAddressArr}) => {
     console.log(idsInCartObj)
     const {data,loading,error} = useFetch("http://localhost:3000/products")
+    const [orderAddress,setOrderAddress] = useState("")
     function increaseQuantityInCart(productId){
         setIdsInCartObj({...idsInCartObj,[productId]:idsInCartObj[productId]+1})
     }
@@ -31,11 +33,21 @@ const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist,placedOrderArr,
 
     function placeOrderFn(){
 
-        setPlacedOrderArr({...idsInCartObj})
+        setPlacedOrderArr({...idsInCartObj,address:orderAddress})
         setIdsInCartObj({})
+        setOrderAddress("")
         alert("Order Placed Successfully!")
 
     }
+
+    function setOrderAddressFn(event){
+
+        setOrderAddress(event.target.value)
+
+    }
+
+    console.log(orderAddress)
+
     console.log(placedOrderArr)
 
     console.log(wishlist)
@@ -61,7 +73,7 @@ const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist,placedOrderArr,
         </>)):loading && <p>Loading..</p>}
         </div>
         </div>
-        <div style={{height:"50vh"}} className="col-md-3 bg-light p-4">
+        <div style={{height:"50vh",width:"20vw"}} className="col-md-3 bg-light p-4">
             <h1>Price Details</h1>
             <hr/>
             <h5 className="fw-light">Price ({Object.keys(idsInCartObj).length}) : Rs.{data?data.filter((product)=>product._id in idsInCartObj ).reduce((acc,curr)=>(curr.originalPrice * idsInCartObj[curr._id]) + acc  ,0):loading && <p>Loading...</p>}
@@ -71,6 +83,10 @@ const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist,placedOrderArr,
             <hr/>
             <h5 className="fw-normal">Total Price: Rs.{data && data.filter((product)=>product._id in idsInCartObj ).reduce((acc,curr)=>(curr.originalPrice * idsInCartObj[curr._id]) + acc,0) + 500}</h5>
             <hr/>
+            <h5 className="fw-normal">Choose Address</h5>
+            {addressArr.map((address)=> (<>
+               <input type="radio" value={address} name="address" onClick={(event)=>setOrderAddressFn(event)} /> <label htmlFor="">{address}</label> <br/>   
+            </>))}<br/>
             <button onClick={()=>placeOrderFn()} style={{padding:"5px 80px"}} className="btn btn-primary">Place Order</button>
         </div>
         </div>

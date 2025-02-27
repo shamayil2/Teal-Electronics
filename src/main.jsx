@@ -35,7 +35,7 @@ function Root(){
     path:"/products/wishlist",
     element:<Wishlist setWishlist={setWishlist} wishlist={wishlist} idsInCartObj={idsInCartObj} setIdsInCartObj={setIdsInCartObj}/>
   },{path:"/products/cart",
-    element:<Cart idsInCartObj={idsInCartObj} setIdsInCartObj={setIdsInCartObj} setWishlist={setWishlist} wishlist={wishlist} placedOrderArr={placedOrderArr} setPlacedOrderArr={setPlacedOrderArr}/>
+    element:<Cart idsInCartObj={idsInCartObj} setIdsInCartObj={setIdsInCartObj} setWishlist={setWishlist} wishlist={wishlist} placedOrderArr={placedOrderArr} setPlacedOrderArr={setPlacedOrderArr} addressArr={addressArr} setAddressArr={setAddressArr}/>
   },{
     path:"/userprofile",
     element:<UserProfile addressArr={addressArr} setAddressArr={setAddressArr} placedOrderArr={placedOrderArr} setPlacedOrderArr={setPlacedOrderArr}/>

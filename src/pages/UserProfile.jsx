@@ -89,7 +89,7 @@ const UserProfile = ({addressArr,setAddressArr,placedOrderArr,setPlacedOrderArr}
 
                       <>
                        <li>
-                       <h4 className="fw-light">{product.title}<br/>  <span style={{fontSize:"16px"}}>Price: {product.price}</span><br/>  <span style={{fontSize:"16px"}}>Quantity: {placedOrderArr[product._id]}</span></h4> <br />
+                       <h4 className="fw-light">{product.title}<br/>  <span style={{fontSize:"16px"}}>Price: {product.price}</span><br/>  <span style={{fontSize:"16px"}}>Quantity: {placedOrderArr[product._id]}</span> <br/>  <span style={{fontSize:"16px"}}>Delivery Address: {placedOrderArr.address}</span> </h4> <br />
                         
                         </li> 
                       </>
