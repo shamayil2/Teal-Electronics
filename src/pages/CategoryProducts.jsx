@@ -28,6 +28,8 @@ const CategoryProducts = () => {
                <img style={{height:"200px"}} src={product.productImage} alt="" />
                <p style={{padding:"10px",backgroundColor:"#F4F2DE",color:"#008080"}}>{product.title}<br/>Price: ${product.price}</p>
                {/* Checks if product id is in inCart array or not and then decides to proceed. */}
+               <button className="m-2" style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}>Add to Wishlist</button>
+               <br/>
                {inCart.includes(product._id)?<Link to="/"><button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#F4F2DE",color:"#008080"}}>Go To Cart</button>
                </Link>:<button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  onClick={(id)=>clickHandler(product._id)}>Add to Cart</button>}
                
