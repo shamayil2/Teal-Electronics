@@ -24,7 +24,7 @@ function Root(){
   },
   {
     path:"/products/category/:categoryId",
-    element:<CategoryProducts setWishlist={setWishlist} wishlist={wishlist} inWishlist={inWishlist} setInWishlist={setInWishlist}/>
+    element:<CategoryProducts setWishlist={setWishlist} wishlist={wishlist} inWishlist={inWishlist} setInWishlist={setInWishlist} idsInCartObj={idsInCartObj} setIdsInCartObj={setIdsInCartObj} />
   },
   {path:"/products",
   element:<AllProducts setWishlist={setWishlist} wishlist={wishlist} inWishlist={inWishlist} setInWishlist={setInWishlist} idsInCartObj={idsInCartObj} setIdsInCartObj={setIdsInCartObj}/>},
