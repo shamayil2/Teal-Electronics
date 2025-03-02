@@ -34,9 +34,11 @@ const CategoryProducts = ({setWishlist,wishlist,idsInCartObj,setIdsInCartObj}) =
                <img style={{height:"200px"}} src={product.productImage} alt="" />
                <p style={{padding:"10px",backgroundColor:"#F4F2DE",color:"#008080"}}>{product.title}<br/>Price: ${product.price}</p>
                {/* Checks if product id is in inCart array or not and then decides to proceed. */}
-                  <button onClick={(productId)=>addToWishlistFn(product._id)} className="m-2" style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}>Add to Wishlist</button>
+               {product._id in wishlist?  <button className="m-2" style={{padding:"0px 60px",backgroundColor:"#F4F2DE"}}><Link to="/products/wishlist"style={{color:"#008080",textDecoration:"none"}}>Go to Wishlist</Link></button>
+                   : <button onClick={(productId)=>addToWishlistFn(product._id)} className="m-2" style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}>Add to Wishlist</button>
+            }
                <br/>
-               {product._id in idsInCartObj?<Link to="/"><button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#F4F2DE",color:"#008080"}}>Go To Cart</button>
+               {product._id in idsInCartObj?<Link to="/"><button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#F4F2DE",color:"#008080"}}><Link style={{color:"#008080",textDecoration:"none"}} to="/products/cart">Go To Cart</Link></button>
                </Link>:<button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  onClick={(id)=>clickHandler(product._id)}>Add to Cart</button>}
                
                

@@ -1,5 +1,6 @@
 import Header from "../components/Header"
 import useFetch from "../useFetch"
+import {Link} from "react-router-dom"
 const Wishlist = ({setWishlist,wishlist,idsInCartObj,setIdsInCartObj}) => {
     console.log(wishlist)
  
@@ -32,7 +33,7 @@ const Wishlist = ({setWishlist,wishlist,idsInCartObj,setIdsInCartObj}) => {
                     <>
                       <img style={{height:"200px"}} src={product.productImage} alt="" />
                       <p style={{padding:"10px",backgroundColor:"#F4F2DE",color:"#008080"}}>{product.title}<br/>Price: ${product.price}</p>
-                     {product._id in idsInCartObj?  <button style={{padding:"0px 60px",backgroundColor:"#F4F2DE",color:"#008080"}}>Go to Cart</button>:<button onClick={(id)=>addIdToCartObj(product._id)} style={{padding:"5px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}>Move to Cart</button>} 
+                     {product._id in idsInCartObj?  <button style={{padding:"0px 60px",backgroundColor:"#F4F2DE",color:"#008080"}}><Link style={{color:"#008080",textDecoration:"none"}} to="/products/cart">Go to Cart</Link></button>:<button onClick={(id)=>addIdToCartObj(product._id)} style={{padding:"5px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}>Move to Cart</button>} 
 
                       <button onClick={(id)=>removeFromWishlist(product._id)} style={{padding:"0px 30px",backgroundColor:"#FF7F7F",color:"white",border:"1px solid #FF7F7F"}}>Remove From Wishlist</button>
                     </>

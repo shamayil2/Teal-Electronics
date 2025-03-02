@@ -194,7 +194,7 @@ const AllProducts = ({setWishlist,wishlist,inWishlist,setInWishlist,idsInCartObj
                     <p style={{fontSize:"20px"}}> {product.title}</p> <span>Rating: {product.rating}</span><br/>
                     <b>Price: ${product.originalPrice}</b>
                     </div>
-                   {product._id in idsInCartObj?<button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#F4F2DE",color:"#008080"}}  onClick={(id)=>addIdToCartObj(product._id)}>Go to Cart</button> :<button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  onClick={(id)=>addIdToCartObj(product._id)}>Add to Cart</button>}
+                   {product._id in idsInCartObj?<button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#F4F2DE",color:"#008080"}}  onClick={(id)=>addIdToCartObj(product._id)}><Link  to="/products/cart" style={{color:"#008080",textDecoration:"none"}}>Go to Cart</Link></button> :<button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  onClick={(id)=>addIdToCartObj(product._id)}>Add to Cart</button>}
                     {inWishlist.includes(product._id)?(<button onClick={(id)=>wishlistHandler(product._id)} className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#F4F2DE",color:"#008080"}} >Remove from Wishlist</button>) : (<button onClick={(id)=>wishlistHandler(product._id)} className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  >Add to Wishlist</button>) } 
 
                 </div>  
@@ -208,7 +208,7 @@ const AllProducts = ({setWishlist,wishlist,inWishlist,setInWishlist,idsInCartObj
                     <p style={{fontSize:"20px"}}> {product.title}</p> <span>Rating: {product.rating}</span><br/>
                     <b>Price: ${product.originalPrice}</b>
                     </div>
-                    {product._id in idsInCartObj?<button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#F4F2DE",color:"#008080"}}  onClick={(id)=>addIdToCartObj(product._id)}>Go to Cart</button> :<button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  onClick={(id)=>addIdToCartObj(product._id)}>Add to Cart</button>}
+                    {product._id in idsInCartObj?<button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#F4F2DE",color:"#008080"}}  onClick={(id)=>addIdToCartObj(product._id)}><Link  to="/products/cart" style={{color:"#008080",textDecoration:"none"}}>Go to Cart</Link></button> :<button className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  onClick={(id)=>addIdToCartObj(product._id)}>Add to Cart</button>}
                     {inWishlist.includes(product._id)?(<button onClick={(id)=>wishlistHandler(product._id)} className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#F4F2DE",color:"#008080"}} >Remove from Wishlist</button>) : (<button onClick={(id)=>wishlistHandler(product._id)} className="mb-4"  style={{padding:"0px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}  >Add to Wishlist</button>) } 
 
                     

@@ -1,6 +1,7 @@
 import Header from "../components/Header"
 import useFetch from "../useFetch"
 import {useState} from "react"
+import {Link} from "react-router-dom"
 const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist,placedOrderArr,setPlacedOrderArr,addressArr, setAddressArr}) => {
     console.log(idsInCartObj)
     const {data,loading,error} = useFetch("http://localhost:3000/products")
@@ -67,7 +68,7 @@ const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist,placedOrderArr,
         <p>{product.originalPrice}</p>
         <p>Quantity:<span><button onClick={(id)=>increaseQuantityInCart(product._id)}>+</button><input type="text" className="text-center" style={{width:"30px"}} value={idsInCartObj[product._id]}/><button onClick={(id)=>decreaseQuantityInCart(product._id)}>-</button></span></p>
         <button style={{padding:"0px 30px",backgroundColor:"#FF7F7F",color:"white",border:"1px solid #FF7F7F"}} onClick={(id)=>removeIdFromCart(product._id)}>Remove from Cart</button>
-       {product._id in wishlist? <button style={{padding:"0px 35px",backgroundColor:"#F4F2DE",color:"#008080"}}>Go To Wishlist</button>:<button onClick={(id)=>moveToWishlistFromCart(product._id)} style={{padding:"0px 35px",backgroundColor:"#008080",color:"#F4F2DE"}}>Move to Wishlist</button>} 
+       {product._id in wishlist? <button style={{padding:"0px 35px",backgroundColor:"#F4F2DE",color:"#008080"}}><Link  to="/products/wishlist" style={{color:"#008080",textDecoration:"none"}}>Go To Wishlist</Link></button>:<button onClick={(id)=>moveToWishlistFromCart(product._id)} style={{padding:"0px 35px",backgroundColor:"#008080",color:"#F4F2DE"}}>Move to Wishlist</button>} 
         </div>
         
         </>)):loading && <p>Loading..</p>}
