@@ -32,11 +32,31 @@ const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist,placedOrderArr,
         }
     }
 
-    async  function placeOrderFn (){
+     function postDataInDb(orders){
 
+        const ordersObj = {
+            product:Object.keys(orders),
+            address:orders.address
+        }
+
+        try{
+            console.log(ordersObj)
+        }
+
+        catch(error){
+            console.log("Cant Post The Orders",error)
+        }
+
+    }
+
+    async  function placeOrderFn (){
+        const placedOrdersObj = {...idsInCartObj,address:orderAddress}
+
+        await postDataInDb(placedOrdersObj)
         
 
         setPlacedOrderArr({...idsInCartObj,address:orderAddress})
+        
         setIdsInCartObj({})
         setOrderAddress("")
         alert("Order Placed Successfully!")
