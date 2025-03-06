@@ -32,7 +32,7 @@ const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist,placedOrderArr,
         }
     }
 
-     function postDataInDb(orders){
+     async function postDataInDb(orders){
 
         const ordersObj = {
             product:Object.keys(orders),
@@ -40,7 +40,19 @@ const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist,placedOrderArr,
         }
 
         try{
-            console.log(ordersObj)
+            
+            const response = await fetch("http://localhost:3000/products/orderedproducts",{
+                method:"POST",
+                body:JSON.stringify(ordersObj),
+                headers:{
+                    "Content-Type":"application/json"
+                }
+            })
+
+            const result = await response.json()
+
+            console.log(result)
+
         }
 
         catch(error){
@@ -49,17 +61,42 @@ const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist,placedOrderArr,
 
     }
 
-    async  function placeOrderFn (){
-        const placedOrdersObj = {...idsInCartObj,address:orderAddress}
+    async function placeOrderFn (){
+    
+         try{
+            const placedOrdersObj = {...idsInCartObj,address:orderAddress}
+            const ordersObj = {
+                product:Object.keys(placedOrdersObj).filter((key)=>key!=="address"),
+                address:placedOrdersObj.address
+            }
+            console.log(JSON.stringify(ordersObj))
+            
+            const response = await fetch("http://localhost:3000/products/orderedproducts",{
+                method:"POST",
+                body:JSON.stringify(ordersObj),
+                headers:{
+                    "Content-Type":"application/json"
+                }
+            })
 
-        await postDataInDb(placedOrdersObj)
-        
+            if(!response.ok){
+                console.log("Error occured !")
+            }else{
+                const result = await response.json()
+                console.log(result)
+                setPlacedOrderArr({...idsInCartObj,address:orderAddress})
 
-        setPlacedOrderArr({...idsInCartObj,address:orderAddress})
-        
-        setIdsInCartObj({})
-        setOrderAddress("")
-        alert("Order Placed Successfully!")
+setIdsInCartObj({})
+setOrderAddress("")
+alert("Order Placed Successfully!")
+            }
+
+         }
+
+         catch(error){
+            console.log("Error occurred",error)
+         }
+    
 
     }
 
