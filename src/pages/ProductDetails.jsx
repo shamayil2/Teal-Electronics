@@ -1,9 +1,10 @@
 import {useParams} from "react-router-dom"
 import useFetch from "../useFetch"
+import {Link} from "react-router-dom"
 import Header from "../components/Header"
 import "./styles.css"
 import {useState} from "react"
-const ProductDetails = ({setWishlist,wishlist,inWishlist,setInWishlist}) => {
+const ProductDetails = ({setWishlist,wishlist,inWishlist,setInWishlist,idsInCartObj,setIdsInCartObj}) => {
 const productId = useParams()
 console.log(productId.productId)
 const {data,loading,error} = useFetch(`http://localhost:3000/products/productdetails/${productId.productId}`)
@@ -14,9 +15,17 @@ const clickHandler = () => {
     }
 }
 
+function addToCartFn(productId){
+
+    setIdsInCartObj({...idsInCartObj,[productId]:count})
+
+}
+console.log(idsInCartObj)
+console.log(wishlist)
+
 function wishlistHandler(productId){
 
-setWishlist({...wishlist,[productId]:1})
+setWishlist({...wishlist,[productId]:count})
 
 
 }
@@ -32,15 +41,15 @@ setWishlist({...wishlist,[productId]:1})
                 <div className="row">
                 <div className="col-md-3 container text-center">
                 <img className="img-fluid" src={data.productImage} alt="" />
-                <button onClick={(id)=>wishlistHandler(data._id)} style={{padding:"0px 80px",color:"#F4F2DE",backgroundColor:"#008080",margin:"10px 0px"}}>Add to Wishlist</button><br/>
-                <button style={{padding:"0px 80px",color:"#F4F2DE",backgroundColor:"#008080"}}>Add to Cart</button>  
+               {data._id in wishlist?<button style={{padding:"0px 80px",margin:"10px 0px"}}><Link style={{color:"#008080",backgroundColor:"#F4F2DE",textDecoration:"none"}} to="/products/wishlist">Go to Wishlist</Link></button>:<button onClick={(id)=>wishlistHandler(data._id)} style={{padding:"0px 80px",color:"#F4F2DE",backgroundColor:"#008080",margin:"10px 0px"}}>Add to Wishlist</button>} 
+               {data._id in idsInCartObj? <button style={{padding:"0px 80px",color:"#008080",backgroundColor:"#F4F2DE"}}><Link style={{color:"#008080",backgroundColor:"#F4F2DE",textDecoration:"none"}} to="/products/cart">Go to Cart</Link></button> : <button onClick={(id)=>addToCartFn(data._id)} style={{padding:"0px 80px",color:"#F4F2DE",backgroundColor:"#008080"}}>Add to Cart</button> } 
                 
                 </div>
                 <div className="col-md-9">
                     <h2>{data.title}</h2>
                     <p><b>Rating</b> : {data.rating}  </p>
                     <p><b>Price: Rs.{data.price}</b> <del>Rs.{data.originalPrice}</del> {(data.price / data.originalPrice * 100).toFixed(1)} % off</p> 
-                    <p>Quantity: <button onClick={clickHandler}>-</button>  {count}  <button onClick={()=>setCount(count + 1 )}>+</button></p>
+                    <p>Quantity: <button onClick={clickHandler}>-</button>  {data._id in idsInCartObj? idsInCartObj[data._id] : count}  <button onClick={()=>setCount(count + 1 )}>+</button></p>
                     <hr/>
                      <span>Free Delivery 🚚 || </span>
                      <span>Easy returns ♻️ || </span>

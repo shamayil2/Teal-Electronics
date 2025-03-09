@@ -15,7 +15,7 @@ const Wishlist = ({setWishlist,wishlist,idsInCartObj,setIdsInCartObj}) => {
       if(productId in idsInCartObj){
         setIdsInCartObj({...idsInCartObj,[productId]:idsInCartObj[productId]+1})
       }else{
-        setIdsInCartObj({...idsInCartObj,[productId]:1})
+        setIdsInCartObj({...idsInCartObj,[productId]:wishlist[productId]})
       }
       
       
