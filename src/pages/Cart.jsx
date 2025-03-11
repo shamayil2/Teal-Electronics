@@ -66,9 +66,16 @@ const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist,placedOrderArr,
          try{
             const placedOrdersObj = {...idsInCartObj,address:orderAddress}
             const ordersObj = {
-                product:Object.keys(placedOrdersObj).filter((key)=>key!=="address"),
+                 products: [],
                 address:placedOrdersObj.address
+                // address:placedOrdersObj.address
             }
+            for(const productId in placedOrdersObj){
+                if(productId!=="address"){
+                    ordersObj.products.push({item:productId,quantity:placedOrdersObj[productId]})
+
+                }
+            }  
             console.log(JSON.stringify(ordersObj))
             
             const response = await fetch("http://localhost:3000/products/orderedproducts",{
@@ -109,7 +116,7 @@ alert("Order Placed Successfully!")
     console.log(orderAddress)
 
     console.log(placedOrderArr)
-
+    
     console.log(wishlist)
     console.log(idsInCartObj)
 
