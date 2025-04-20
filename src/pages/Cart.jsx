@@ -1,11 +1,20 @@
 import Header from "../components/Header"
 import useFetch from "../useFetch"
-import {useState} from "react"
+import {useState,useEffect} from "react"
 import {Link} from "react-router-dom"
 const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist,placedOrderArr,setPlacedOrderArr,addressArr, setAddressArr}) => {
     console.log(idsInCartObj)
     const {data,loading,error} = useFetch("http://localhost:3000/products")
     const [orderAddress,setOrderAddress] = useState("")
+    const [alertRemove,setAlertRemove] = useState(false)
+
+    useEffect(()=> {
+        setTimeout(() => {
+            setAlertRemove(false)
+        }, 3000);
+
+    })
+
     function increaseQuantityInCart(productId){
         setIdsInCartObj({...idsInCartObj,[productId]:idsInCartObj[productId]+1})
     }
@@ -21,6 +30,8 @@ const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist,placedOrderArr,
 
        delete idsInCartObj[productId] 
         setIdsInCartObj({...idsInCartObj})
+        setAlertRemove(true)
+
     }
 
     function moveToWishlistFromCart(productId){
@@ -113,16 +124,14 @@ alert("Order Placed Successfully!")
 
     }
 
-    console.log(orderAddress)
-
-    console.log(placedOrderArr)
-    
-    console.log(wishlist)
-    console.log(idsInCartObj)
-
     return(
         <>
         <Header/>
+        {alertRemove && <>
+            <div className="bg-danger text-light text-center fixed-top " >
+            <p style={{marginBottom:"0px"}}>Item Removed from Cart</p>
+        </div>
+        </>}
         <main className="container py-4">
         <h1 className="text-center">My Cart</h1>
         <div className="row">

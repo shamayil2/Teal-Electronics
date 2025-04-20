@@ -8,6 +8,7 @@ const AllProducts = ({setWishlist,wishlist,inWishlist,setInWishlist,idsInCartObj
     let [error, setError] = useState(null);
     let [rating,setRating] = useState(0)
     let [checkedData,setCheckedData] = useState([])
+    let [alertCart,setAlertCart] = useState(false)
   
     let [sort,setSort] = useState("")
     const filterRef1 = useRef()
@@ -29,9 +30,14 @@ const AllProducts = ({setWishlist,wishlist,inWishlist,setInWishlist,idsInCartObj
                 .catch((error) => setError(error.message))
                 .finally(() => setLoading(false));
         }, []);
-    
+        
+        useEffect(()=> {
+            setTimeout(() => {
+                 setAlertCart(false)   
+            }, 3000);
+        },[idsInCartObj])
   
-    console.log(data)
+    
    
     let [filteredProducts,setFilteredProducts] = useState([])
 
@@ -120,8 +126,6 @@ const AllProducts = ({setWishlist,wishlist,inWishlist,setInWishlist,idsInCartObj
         
     }
 
-    console.log(checkedData)
-    console.log(filteredProducts)
 
     function wishlistHandler(productId){
         
@@ -147,15 +151,20 @@ const AllProducts = ({setWishlist,wishlist,inWishlist,setInWishlist,idsInCartObj
             return;
         }else{
             setIdsInCartObj({...idsInCartObj,[productId]:1})
+            setAlertCart(true)   
         }
 
     }
 
-    console.log(wishlist)
-    console.log(inWishlist)
     return(
         <>
         <Header/>
+        {alertCart && <>
+            <div className="bg-primary text-light text-center fixed-top " >
+            <p style={{marginBottom:"0px"}}>Item Added to Cart</p>
+        </div>
+        </>}
+       
        
         <div className="row">
             <div className="col-md-3 p-4">
