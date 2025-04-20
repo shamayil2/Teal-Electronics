@@ -6,7 +6,8 @@ const UserProfile = ({addressArr,setAddressArr,placedOrderArr,setPlacedOrderArr}
     const [addressBar,setAddressBar] = useState(false)
     const [orderHistoryBar,setOrderHistoryBar] = useState(false)
     const [addressTextarea,setAddressTextarea] = useState("")
-    const { data, loading, error } = useFetch("http://localhost:3000/products")
+    const { data, loading, error } = useFetch("http://localhost:3000/orderedProducts")
+    console.log(data)
     function addressBarBtn(){
         setAddressBar(true)
         setOrderHistoryBar(false)
@@ -30,7 +31,7 @@ const UserProfile = ({addressArr,setAddressArr,placedOrderArr,setPlacedOrderArr}
         setAddressArr([...addressArr,addressTextarea])
         setAddressTextarea("")
     }
-    console.log(addressArr)
+    
   return (
     <>
       <Header />
@@ -83,20 +84,35 @@ const UserProfile = ({addressArr,setAddressArr,placedOrderArr,setPlacedOrderArr}
               <button onClick={()=>addNewAddressFn()} style={{padding:"5px 20px",backgroundColor:"#008080",border:"1px solid #008080",color:"#F4F2DE"}}>Add Address</button>
           </>}
               {orderHistoryBar && data? <>
-                <h4 className="fw-normal">Order History</h4>
-                  <ul>
-                    {data.filter((product)=>product._id in placedOrderArr).map((product)=> (
+                <h2 className="fw-normal mb-4">Order History</h2>
+                <ul >
+                  {data.map((order)=> (
 
-                      <>
-                       <li>
-                       <h4 className="fw-light">{product.title}<br/>  <span style={{fontSize:"16px"}}>Price: {product.price}</span><br/>  <span style={{fontSize:"16px"}}>Quantity: {placedOrderArr[product._id]}</span> <br/>  <span style={{fontSize:"16px"}}>Delivery Address: {placedOrderArr.address}</span> </h4> <br />
-                        
-                        </li> 
-                      </>
+                    <li style={{padding:"20px",borderRadius:"20px",backgroundColor:"#F5EEDD",marginBottom:"15px"}}>
+                      <h3 className="fw-light mb-4">Address:{order.address}</h3>
+                        <ul>
+                    {
+                      
+                      order.products.map((product)=> (
+                        <>
+                        <li>
+                        <h2 className="fw-lighter">Item: {product.item.title}</h2>
+                        <p>Price: Rs.{product.item.price}</p>
+                        <p>Quantity: {product.quantity}</p>
+                        </li>
+                        </>
+                      ))
+                     
+                    }
+                    </ul>
+                    
+                    </li>
 
-                    ))}
+                  ))}
+                
 
-                  </ul> 
+
+                </ul>
 
               </>: loading && <p>  Loading Orders </p>}
 
