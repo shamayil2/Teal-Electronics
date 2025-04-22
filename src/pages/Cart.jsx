@@ -7,21 +7,38 @@ const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist,placedOrderArr,
     const {data,loading,error} = useFetch("http://localhost:3000/products")
     const [orderAddress,setOrderAddress] = useState("")
     const [alertRemove,setAlertRemove] = useState(false)
+    const [itemNumIncAlert,setItemNumIncAlert] = useState(false)
+    const [itemNumDecAlert,setItemNumDecAlert] = useState(false)
+    const [moveToWishlist,setMoveToWishlist] = useState(false)
+
+    useEffect(()=>{
+        setTimeout(() => {
+            setItemNumDecAlert(false)
+            setItemNumIncAlert(false)
+        }, 4000);
+
+        setTimeout(() => {
+            setMoveToWishlist(false)
+        }, 4000);
+
+    },[idsInCartObj],[setWishlist])
 
     useEffect(()=> {
         setTimeout(() => {
             setAlertRemove(false)
-        }, 3000);
+        }, 4000);
 
-    })
+    },[idsInCartObj])
 
     function increaseQuantityInCart(productId){
         setIdsInCartObj({...idsInCartObj,[productId]:idsInCartObj[productId]+1})
+        setItemNumIncAlert(true)
     }
 
     function decreaseQuantityInCart(productId){
         if(idsInCartObj[productId]>0){
             setIdsInCartObj({...idsInCartObj,[productId]:idsInCartObj[productId]-1})
+            setItemNumDecAlert(true)
         }
        
     }
@@ -40,6 +57,7 @@ const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist,placedOrderArr,
 
         }else{
             setWishlist({...wishlist,[productId]:1})
+            setMoveToWishlist(true)
         }
     }
 
@@ -127,11 +145,29 @@ alert("Order Placed Successfully!")
     return(
         <>
         <Header/>
+        {itemNumIncAlert ?
+            <>
+            <div className="bg-warning text-light text-center fixed-top py-3 " style={{width:"40%",margin:"0 auto"}} >
+            <p style={{marginBottom:"0px"}}>Item Quantity Increased</p>
+        </div></>: itemNumDecAlert && <div className="bg-warning text-light text-center fixed-top py-3 " style={{width:"40%",margin:"0 auto"}} >
+            <p style={{marginBottom:"0px"}}>Item Quantity Decreased</p>
+        </div>
+
+
+            
+        }
         {alertRemove && <>
-            <div className="bg-danger text-light text-center fixed-top " >
+            <div className="bg-danger text-light text-center fixed-top " style={{width:"40%",margin:"0 auto"}} >
             <p style={{marginBottom:"0px"}}>Item Removed from Cart</p>
         </div>
         </>}
+        { moveToWishlist &&
+            <>
+            <div className="bg-info text-light text-center fixed-top py-3  " style={{width:"40%",margin:"0 auto"}} >
+            <p style={{marginBottom:"0px"}}>Item Moved To Wishlist</p>
+        </div>
+            </>
+        }
         <main className="container py-4">
         <h1 className="text-center">My Cart</h1>
         <div className="row">

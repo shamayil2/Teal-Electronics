@@ -2,17 +2,23 @@ import {useParams} from "react-router-dom"
 import Header from "../components/Header"
 import useFetch from "../useFetch"
 import {Link} from "react-router-dom"
-import {useState} from "react"
+import {useState,useEffect} from "react"
 
 const CategoryProducts = ({setWishlist,wishlist,idsInCartObj,setIdsInCartObj}) => {
     const categoryObj = useParams()
-    console.log(categoryObj.categoryId)
     const {data,loading,error} = useFetch(`http://localhost:3000/products/category/${categoryObj.categoryId}`)
-    console.log(data)
     const [inCart,setinCart] = useState([])
+    const [alertCart,setAlertCart] = useState(false)
     
+    useEffect(()=>{
+        setTimeout(() => {
+            setAlertCart(false)
+        }, 4000);
+    },[idsInCartObj])
+
     const clickHandler = (productId) => {
         setIdsInCartObj({...idsInCartObj,[productId]:1})
+        setAlertCart(true)
     }
     
     function addToWishlistFn(productId){
@@ -24,6 +30,11 @@ const CategoryProducts = ({setWishlist,wishlist,idsInCartObj,setIdsInCartObj}) =
     return(
         <>
         <Header/>
+        {alertCart && <>
+            <div className="bg-primary text-light text-center fixed-top " >
+            <p style={{marginBottom:"0px"}}>Item Added to Cart</p>
+        </div>
+        </>}
         <main className="container">
         {data?(<>
         <h1 className="text-center py-4" style={{color:"#008080"}}>Check out our latest {data[0].category.name}</h1>

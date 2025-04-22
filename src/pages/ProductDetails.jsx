@@ -3,12 +3,19 @@ import useFetch from "../useFetch"
 import {Link} from "react-router-dom"
 import Header from "../components/Header"
 import "./styles.css"
-import {useState} from "react"
+import {useState,useEffect} from "react"
 const ProductDetails = ({setWishlist,wishlist,inWishlist,setInWishlist,idsInCartObj,setIdsInCartObj}) => {
 const productId = useParams()
-console.log(productId.productId)
 const {data,loading,error} = useFetch(`http://localhost:3000/products/productdetails/${productId.productId}`)
 const [count,setCount] = useState(1)
+const [alertCart,setAlertCart] = useState(false)
+
+useEffect(()=>{
+setTimeout(() => {
+    setAlertCart(false)
+}, 4000);
+},[idsInCartObj])
+
 const clickHandler = () => {
     if(count>1){
         setCount(count-1)
@@ -18,21 +25,22 @@ const clickHandler = () => {
 function addToCartFn(productId){
 
     setIdsInCartObj({...idsInCartObj,[productId]:count})
+    setAlertCart(true)
 
 }
-console.log(idsInCartObj)
-console.log(wishlist)
 
 function wishlistHandler(productId){
-
 setWishlist({...wishlist,[productId]:count})
-
-
 }
 
     return(
         <>
         <Header/>
+        {alertCart && <>
+            <div className="bg-primary text-light text-center fixed-top " >
+            <p style={{marginBottom:"0px"}}>Item Added to Cart</p>
+        </div>
+        </>}
         <div className="container py-4">
             
        
