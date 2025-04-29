@@ -1,14 +1,31 @@
 import Header from "../components/Header"
 import useFetch from "../useFetch"
+import {useEffect,useState} from "react"
 import {Link} from "react-router-dom"
 const Wishlist = ({setWishlist,wishlist,idsInCartObj,setIdsInCartObj}) => {
-    console.log(wishlist)
+   
  
     const {data,loading,error} = useFetch("http://localhost:3000/products")
+    let [alertRemoveWishlist,setAlertRemoveWishlist]= useState(false)
+    let [alertToCart,setAlertToCart] = useState(false)
+    
+  useEffect(()=>{
+    setTimeout(() => {
+      setAlertRemoveWishlist(false)
+    }, 3000);
+
+    setTimeout(() => {
+      setAlertToCart(false)
+    }, 3000);
+
+  },[wishlist,idsInCartObj])
+  
+
     function removeFromWishlist(productId){
       delete wishlist[productId]
       
       setWishlist({...wishlist})
+      setAlertRemoveWishlist(true)
     }
     //Function to add the product id in object containing the product ids which are in cart.
     function addIdToCartObj(productId){
@@ -17,7 +34,7 @@ const Wishlist = ({setWishlist,wishlist,idsInCartObj,setIdsInCartObj}) => {
       }else{
         setIdsInCartObj({...idsInCartObj,[productId]:wishlist[productId]})
       }
-      
+      setAlertToCart(true)
       
 
     }
@@ -25,6 +42,14 @@ const Wishlist = ({setWishlist,wishlist,idsInCartObj,setIdsInCartObj}) => {
     return(
         <>
         <Header/>
+        {alertRemoveWishlist && <>
+            <div className="bg-danger text-light text-center fixed-top " >
+            <p style={{marginBottom:"0px"}}>Item Removed From Wishlist</p>
+        </div></>}
+        {alertToCart && <>
+            <div className="bg-success text-light text-center fixed-top " >
+            <p style={{marginBottom:"0px"}}>Item Moved To Cart</p>
+        </div></>}
         <main className="container py-4">
             <h1 className="text-center">My Wishlist</h1>
             <div className="row py-4">

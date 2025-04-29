@@ -9,12 +9,18 @@ const productId = useParams()
 const {data,loading,error} = useFetch(`http://localhost:3000/products/productdetails/${productId.productId}`)
 const [count,setCount] = useState(1)
 const [alertCart,setAlertCart] = useState(false)
+let [alertWishlist,setAlertWishlist] = useState(false)
 
 useEffect(()=>{
 setTimeout(() => {
     setAlertCart(false)
 }, 4000);
-},[idsInCartObj])
+
+setTimeout(() => {
+    setAlertWishlist(false)
+}, 4000);
+
+},[idsInCartObj,wishlist])
 
 const clickHandler = () => {
     if(count>1){
@@ -31,11 +37,17 @@ function addToCartFn(productId){
 
 function wishlistHandler(productId){
 setWishlist({...wishlist,[productId]:count})
+setAlertWishlist(true)
 }
 
     return(
         <>
         <Header/>
+        {alertWishlist && <>
+            <div className="bg-info text-light text-center fixed-top " >
+            <p style={{marginBottom:"0px"}}>Item Added to Wishlist</p>
+        </div>
+        </>}
         {alertCart && <>
             <div className="bg-primary text-light text-center fixed-top " >
             <p style={{marginBottom:"0px"}}>Item Added to Cart</p>

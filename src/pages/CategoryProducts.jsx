@@ -9,12 +9,18 @@ const CategoryProducts = ({setWishlist,wishlist,idsInCartObj,setIdsInCartObj}) =
     const {data,loading,error} = useFetch(`http://localhost:3000/products/category/${categoryObj.categoryId}`)
     const [inCart,setinCart] = useState([])
     const [alertCart,setAlertCart] = useState(false)
+    let [alertWishlist,setAlertWishlist] = useState(false)
     
     useEffect(()=>{
         setTimeout(() => {
             setAlertCart(false)
         }, 4000);
-    },[idsInCartObj])
+
+        setTimeout(() => {
+            setAlertWishlist(false)
+        }, 4000);
+
+    },[idsInCartObj,wishlist])
 
     const clickHandler = (productId) => {
         setIdsInCartObj({...idsInCartObj,[productId]:1})
@@ -24,12 +30,17 @@ const CategoryProducts = ({setWishlist,wishlist,idsInCartObj,setIdsInCartObj}) =
     function addToWishlistFn(productId){
 
         setWishlist({...wishlist,[productId]:1})
-
+        setAlertWishlist(true)
     }
 
     return(
         <>
         <Header/>
+        {alertWishlist && <>
+            <div className="bg-info text-light text-center fixed-top " >
+            <p style={{marginBottom:"0px"}}>Item Added to Wishlist</p>
+        </div>
+        </>}
         {alertCart && <>
             <div className="bg-primary text-light text-center fixed-top " >
             <p style={{marginBottom:"0px"}}>Item Added to Cart</p>
