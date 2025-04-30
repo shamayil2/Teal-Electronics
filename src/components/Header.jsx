@@ -1,7 +1,27 @@
 import {NavLink} from "react-router-dom"
 import "./header.css"
-
+import {useState} from "react"
+import useFetch from "../useFetch"
 const Header = () => {
+  const {data,loading,error} = useFetch("http://localhost:3000/products")
+  console.log(data)
+  if(data){
+   const productTitles = data.map((product)=> {
+      return product.title
+      
+    })
+    console.log(productTitles)
+  }
+  
+  function searchFnHandler(event){
+    const searchInput = event.target.value;
+    if(data){
+      const filteredProducts = data.filter((product)=>product.title.toLowerCase().includes(searchInput.toLowerCase()))
+      console.log(filteredProducts)
+    }
+    
+  }
+
 
  return(
     <>
@@ -13,7 +33,7 @@ const Header = () => {
     </button>
     <div className="collapse container navbar-collapse" id="navbarSupportedContent" >
     <form className="d-flex mx-auto" role="search">
-        <input style={{border:"2px solid #008080",width:"500px"}} className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+        <input onChange={(event)=>searchFnHandler(event)} style={{border:"2px solid #008080",width:"500px"}} className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
         
       </form>
       <ul className="navbar-nav ms-auto">
