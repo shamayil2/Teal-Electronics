@@ -2,22 +2,14 @@ import {NavLink} from "react-router-dom"
 import "./header.css"
 import {useState} from "react"
 import useFetch from "../useFetch"
-const Header = () => {
+const Header = ({filteredProducts ,setFilteredProducts}) => {
   const {data,loading,error} = useFetch("http://localhost:3000/products")
-  console.log(data)
-  if(data){
-   const productTitles = data.map((product)=> {
-      return product.title
-      
-    })
-    console.log(productTitles)
-  }
-  
+ 
   function searchFnHandler(event){
     const searchInput = event.target.value;
     if(data){
-      const filteredProducts = data.filter((product)=>product.title.toLowerCase().includes(searchInput.toLowerCase()))
-      console.log(filteredProducts)
+      const filteredItems = data.filter((product)=>product.title.toLowerCase().includes(searchInput.toLowerCase()))
+      setFilteredProducts([...filteredItems])
     }
     
   }

@@ -1,17 +1,19 @@
 import useFetch from "../useFetch"
 import Header from "../components/Header"
 import {Link} from "react-router-dom"
+import {useEffect} from "react"
 
 
 
-const Home = () => {
-    
+const Home = ({filteredProducts ,setFilteredProducts}) => {
+  
+
+
   const {data,loading,error} = useFetch("http://localhost:3000/categories")
-  console.log(data)
-    
+  console.log(filteredProducts)
     return(
         <>
-       <Header/>
+       <Header filteredProducts={filteredProducts} setFilteredProducts={setFilteredProducts}/>
        <main className="container">
         <section>
             <div className="row py-4">

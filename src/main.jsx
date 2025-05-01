@@ -18,16 +18,17 @@ function Root(){
   const [inWishlist,setInWishlist] = useState([])
   const [addressArr,setAddressArr] = useState(["121 Street 3,South Delhi, New Delhi 110025, India"])
   const [placedOrderArr,setPlacedOrderArr] = useState({})
+  const [filteredProducts,setFilteredProducts] = useState([])
   const router = createBrowserRouter([{
     path:"/",
-    element:<Home/>
+    element:<Home filteredProducts={filteredProducts} setFilteredProducts={setFilteredProducts}/>
   },
   {
     path:"/products/category/:categoryId",
     element:<CategoryProducts setWishlist={setWishlist} wishlist={wishlist} inWishlist={inWishlist} setInWishlist={setInWishlist} idsInCartObj={idsInCartObj} setIdsInCartObj={setIdsInCartObj} />
   },
   {path:"/products",
-  element:<AllProducts setWishlist={setWishlist} wishlist={wishlist} inWishlist={inWishlist} setInWishlist={setInWishlist} idsInCartObj={idsInCartObj} setIdsInCartObj={setIdsInCartObj}/>},
+  element:<AllProducts filteredProducts={filteredProducts} setFilteredProducts={setFilteredProducts} setWishlist={setWishlist} wishlist={wishlist} inWishlist={inWishlist} setInWishlist={setInWishlist} idsInCartObj={idsInCartObj} setIdsInCartObj={setIdsInCartObj}/>},
   {
     path:"/products/productdetails/:productId",
     element:<ProductDetails setWishlist={setWishlist} wishlist={wishlist} inWishlist={inWishlist} setInWishlist={setInWishlist} idsInCartObj={idsInCartObj} setIdsInCartObj={setIdsInCartObj}/>
