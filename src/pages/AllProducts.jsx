@@ -1,8 +1,9 @@
 import Header from "../components/Header"
+import SearchResults from "../components/SearchResults"
 import {useState,useEffect,useRef} from "react"
 import {Link} from "react-router-dom"
 import useFetch from "../useFetch"
-const AllProducts = ({setWishlist,wishlist,inWishlist,setInWishlist,idsInCartObj,setIdsInCartObj}) => {
+const AllProducts = ({ searchedProducts,setSearchedProducts, setWishlist,wishlist,inWishlist,setInWishlist,idsInCartObj,setIdsInCartObj}) => {
     let [data, setData] = useState(null);
     let [loading, setLoading] = useState(false);
     let [error, setError] = useState(null);
@@ -165,7 +166,7 @@ const AllProducts = ({setWishlist,wishlist,inWishlist,setInWishlist,idsInCartObj
 
     return(
         <>
-        <Header/>
+        <Header filteredProducts={searchedProducts} setFilteredProducts={setSearchedProducts}/>
         {alertWishlist && <>
             <div className="bg-info text-light text-center fixed-top " >
             <p style={{marginBottom:"0px"}}>Item Added to Wishlist</p>
@@ -176,8 +177,13 @@ const AllProducts = ({setWishlist,wishlist,inWishlist,setInWishlist,idsInCartObj
             <p style={{marginBottom:"0px"}}>Item Added to Cart</p>
         </div>
         </>}
-       
-       
+        {searchedProducts.length>0 && <>
+
+            <SearchResults filteredProducts={searchedProducts}/>
+        </>
+        }
+           
+       {searchedProducts.length===0 && <>
         <div className="row">
             <div className="col-md-3 p-4">
                 <div className="container">
@@ -240,6 +246,9 @@ const AllProducts = ({setWishlist,wishlist,inWishlist,setInWishlist,idsInCartObj
             </div>
         
         </div>
+       </>
+       }
+        
 
         </>
     )

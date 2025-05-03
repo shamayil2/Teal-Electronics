@@ -1,5 +1,6 @@
 import useFetch from "../useFetch"
 import Header from "../components/Header"
+import SearchResults from "../components/SearchResults"
 import {Link} from "react-router-dom"
 import {useEffect} from "react"
 
@@ -7,14 +8,20 @@ import {useEffect} from "react"
 
 const Home = ({filteredProducts ,setFilteredProducts}) => {
   
-
+ useEffect(()=>{
+  setFilteredProducts([])
+ },[])
 
   const {data,loading,error} = useFetch("http://localhost:3000/categories")
   console.log(filteredProducts)
     return(
         <>
        <Header filteredProducts={filteredProducts} setFilteredProducts={setFilteredProducts}/>
+       
        <main className="container">
+        <SearchResults filteredProducts={filteredProducts}/>
+        {(filteredProducts.length===0) && 
+        <>
         <section>
             <div className="row py-4">
                 {data? data.map((dataItem)=>(
@@ -106,6 +113,8 @@ const Home = ({filteredProducts ,setFilteredProducts}) => {
 </div>
   </div>
  </section>
+ </>
+}
  </main>
         </>
         

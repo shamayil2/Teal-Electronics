@@ -2,9 +2,10 @@ import {useParams} from "react-router-dom"
 import useFetch from "../useFetch"
 import {Link} from "react-router-dom"
 import Header from "../components/Header"
+import SearchResults from "../components/SearchResults"
 import "./styles.css"
 import {useState,useEffect} from "react"
-const ProductDetails = ({setWishlist,wishlist,inWishlist,setInWishlist,idsInCartObj,setIdsInCartObj}) => {
+const ProductDetails = ({filteredProducts,setFilteredProducts,setWishlist,wishlist,inWishlist,setInWishlist,idsInCartObj,setIdsInCartObj}) => {
 const productId = useParams()
 const {data,loading,error} = useFetch(`http://localhost:3000/products/productdetails/${productId.productId}`)
 const [count,setCount] = useState(1)
@@ -42,7 +43,11 @@ setAlertWishlist(true)
 
     return(
         <>
-        <Header/>
+        <Header filteredProducts={filteredProducts} setFilteredProducts={setFilteredProducts}/>
+        {filteredProducts.length>0 && <> 
+            <SearchResults filteredProducts={filteredProducts}/>
+        </>}
+     
         {alertWishlist && <>
             <div className="bg-info text-light text-center fixed-top " >
             <p style={{marginBottom:"0px"}}>Item Added to Wishlist</p>
@@ -53,7 +58,8 @@ setAlertWishlist(true)
             <p style={{marginBottom:"0px"}}>Item Added to Cart</p>
         </div>
         </>}
-        <div className="container py-4">
+        {filteredProducts.length==0 && <>
+            <div className="container py-4">
             
        
         {
@@ -89,6 +95,10 @@ setAlertWishlist(true)
         }
          </div>
      
+       
+        </>
+        }
+        
         </>
     )
 

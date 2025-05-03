@@ -8,8 +8,14 @@ const Header = ({filteredProducts ,setFilteredProducts}) => {
   function searchFnHandler(event){
     const searchInput = event.target.value;
     if(data){
-      const filteredItems = data.filter((product)=>product.title.toLowerCase().includes(searchInput.toLowerCase()))
-      setFilteredProducts([...filteredItems])
+      if(searchInput.length>0){
+        const filteredItems = data.filter((product)=>product.title.toLowerCase().includes(searchInput.toLowerCase()))
+        setFilteredProducts([...filteredItems])
+      }else{
+        setFilteredProducts([])
+      }
+
+     
     }
     
   }
@@ -25,7 +31,7 @@ const Header = ({filteredProducts ,setFilteredProducts}) => {
     </button>
     <div className="collapse container navbar-collapse" id="navbarSupportedContent" >
     <form className="d-flex mx-auto" role="search">
-        <input onChange={(event)=>searchFnHandler(event)} style={{border:"2px solid #008080",width:"500px"}} className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+        <input onChange={(event)=>searchFnHandler(event)} style={{border:"2px solid #008080",width:"500px"}} className="form-control me-2" type="search" placeholder="Search All Electronic Products" aria-label="Search"/>
         
       </form>
       <ul className="navbar-nav ms-auto">

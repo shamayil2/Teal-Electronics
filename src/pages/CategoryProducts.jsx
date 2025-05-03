@@ -1,10 +1,11 @@
 import {useParams} from "react-router-dom"
 import Header from "../components/Header"
+import SearchResults from "../components/SearchResults"
 import useFetch from "../useFetch"
 import {Link} from "react-router-dom"
 import {useState,useEffect} from "react"
 
-const CategoryProducts = ({setWishlist,wishlist,idsInCartObj,setIdsInCartObj}) => {
+const CategoryProducts = ({filteredProducts,setFilteredProducts,setWishlist,wishlist,idsInCartObj,setIdsInCartObj}) => {
     const categoryObj = useParams()
     const {data,loading,error} = useFetch(`http://localhost:3000/products/category/${categoryObj.categoryId}`)
     const [inCart,setinCart] = useState([])
@@ -35,7 +36,7 @@ const CategoryProducts = ({setWishlist,wishlist,idsInCartObj,setIdsInCartObj}) =
 
     return(
         <>
-        <Header/>
+        <Header filteredProducts={filteredProducts} setFilteredProducts={setFilteredProducts}/>
         {alertWishlist && <>
             <div className="bg-info text-light text-center fixed-top " >
             <p style={{marginBottom:"0px"}}>Item Added to Wishlist</p>
@@ -47,7 +48,11 @@ const CategoryProducts = ({setWishlist,wishlist,idsInCartObj,setIdsInCartObj}) =
         </div>
         </>}
         <main className="container">
-        {data?(<>
+            {filteredProducts.length>0 && <>
+            <SearchResults filteredProducts={filteredProducts}/>
+            </>}
+           {filteredProducts.length===0 && <>
+            {data?(<>
         <h1 className="text-center py-4" style={{color:"#008080"}}>Check out our latest {data[0].category.name}</h1>
      
          <div className="row">
@@ -68,6 +73,8 @@ const CategoryProducts = ({setWishlist,wishlist,idsInCartObj,setIdsInCartObj}) =
         ))}
             </div>
         </>):loading&& <p>Loading...</p>}
+           </>}
+      
         </main>
         
         
