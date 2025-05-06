@@ -7,7 +7,7 @@ import "./styles.css"
 import {useState,useEffect} from "react"
 const ProductDetails = ({filteredProducts,setFilteredProducts,setWishlist,wishlist,inWishlist,setInWishlist,idsInCartObj,setIdsInCartObj}) => {
 const productId = useParams()
-const {data,loading,error} = useFetch(`http://localhost:3000/products/productdetails/${productId.productId}`)
+const {data,loading,error} = useFetch(`https://teal-electronics-backend.vercel.app/products/productdetails/${productId.productId}`)
 const [count,setCount] = useState(1)
 const [alertCart,setAlertCart] = useState(false)
 let [alertWishlist,setAlertWishlist] = useState(false)

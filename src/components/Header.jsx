@@ -3,7 +3,7 @@ import "./header.css"
 import {useState} from "react"
 import useFetch from "../useFetch"
 const Header = ({filteredProducts ,setFilteredProducts}) => {
-  const {data,loading,error} = useFetch("http://localhost:3000/products")
+  const {data,loading,error} = useFetch("https://teal-electronics-backend.vercel.app/products")
  
   function searchFnHandler(event){
     const searchInput = event.target.value;

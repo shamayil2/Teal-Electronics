@@ -12,7 +12,7 @@ const Home = ({filteredProducts ,setFilteredProducts}) => {
   setFilteredProducts([])
  },[])
 
-  const {data,loading,error} = useFetch("http://localhost:3000/categories")
+  const {data,loading,error} = useFetch("https://teal-electronics-backend.vercel.app/categories")
   console.log(filteredProducts)
     return(
         <>

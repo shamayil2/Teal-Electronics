@@ -24,7 +24,7 @@ const AllProducts = ({ searchedProducts,setSearchedProducts, setWishlist,wishlis
 
       useEffect(() => {
             setLoading(true);
-            fetch("http://localhost:3000/products")
+            fetch("https://teal-electronics-backend.vercel.app/products")
                 .then((res) => res.json())
                 .then((data) => {
                     setData(data);

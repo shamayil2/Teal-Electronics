@@ -5,7 +5,7 @@ import {Link} from "react-router-dom"
 const Wishlist = ({setWishlist,wishlist,idsInCartObj,setIdsInCartObj}) => {
    
  
-    const {data,loading,error} = useFetch("http://localhost:3000/products")
+    const {data,loading,error} = useFetch("https://teal-electronics-backend.vercel.app/products")
     let [alertRemoveWishlist,setAlertRemoveWishlist]= useState(false)
     let [alertToCart,setAlertToCart] = useState(false)
     

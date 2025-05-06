@@ -4,7 +4,7 @@ import {useState,useEffect} from "react"
 import {Link} from "react-router-dom"
 const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist,placedOrderArr,setPlacedOrderArr,addressArr, setAddressArr}) => {
     console.log(idsInCartObj)
-    const {data,loading,error} = useFetch("http://localhost:3000/products")
+    const {data,loading,error} = useFetch("https://teal-electronics-backend.vercel.app/products")
     const [orderAddress,setOrderAddress] = useState("")
     const [alertRemove,setAlertRemove] = useState(false)
     const [itemNumIncAlert,setItemNumIncAlert] = useState(false)

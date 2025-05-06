@@ -6,7 +6,7 @@ const UserProfile = ({addressArr,setAddressArr,placedOrderArr,setPlacedOrderArr}
     const [addressBar,setAddressBar] = useState(false)
     const [orderHistoryBar,setOrderHistoryBar] = useState(false)
     const [addressTextarea,setAddressTextarea] = useState("")
-    const { data, loading, error } = useFetch("http://localhost:3000/orderedProducts")
+    const { data, loading, error } = useFetch("https://teal-electronics-backend.vercel.app/orderedProducts")
     console.log(data)
     function addressBarBtn(){
         setAddressBar(true)

@@ -7,7 +7,7 @@ import {useState,useEffect} from "react"
 
 const CategoryProducts = ({filteredProducts,setFilteredProducts,setWishlist,wishlist,idsInCartObj,setIdsInCartObj}) => {
     const categoryObj = useParams()
-    const {data,loading,error} = useFetch(`http://localhost:3000/products/category/${categoryObj.categoryId}`)
+    const {data,loading,error} = useFetch(`https://teal-electronics-backend.vercel.app/products/category/${categoryObj.categoryId}`)
     const [inCart,setinCart] = useState([])
     const [alertCart,setAlertCart] = useState(false)
     let [alertWishlist,setAlertWishlist] = useState(false)
