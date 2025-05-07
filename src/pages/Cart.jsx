@@ -175,7 +175,7 @@ alert("Order Placed Successfully!")
                 <div className="row">
         {data?data.filter((product)=>product._id in idsInCartObj).map(product=> (<>
         <div className="col-md-4">
-         <img style={{height:"200px"}} className="img-fluid" src={product.productImage} alt="" />   
+        <Link to={`/products/productdetails/${product._id}`}> <img style={{height:"200px"}} className="img-fluid" src={product.productImage} alt="" /> </Link>  
         <h3>{product.title}</h3>
         <p>{product.originalPrice}</p>
         <p>Quantity:<span><button onClick={(id)=>increaseQuantityInCart(product._id)}>+</button><input type="text" className="text-center" style={{width:"30px"}} value={idsInCartObj[product._id]}/><button onClick={(id)=>decreaseQuantityInCart(product._id)}>-</button></span></p>

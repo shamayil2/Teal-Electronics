@@ -13,6 +13,12 @@ const [alertCart,setAlertCart] = useState(false)
 let [alertWishlist,setAlertWishlist] = useState(false)
 
 useEffect(()=>{
+
+    setFilteredProducts([])
+
+},[])
+
+useEffect(()=>{
 setTimeout(() => {
     setAlertCart(false)
 }, 4000);

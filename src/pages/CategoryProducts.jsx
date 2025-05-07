@@ -58,7 +58,7 @@ const CategoryProducts = ({filteredProducts,setFilteredProducts,setWishlist,wish
          <div className="row">
          {data.map((product)=>(
            <div className="col-md-3 text-center">
-               <img style={{height:"200px"}} src={product.productImage} alt="" />
+              <Link to={`/products/productdetails/${product._id}`}> <img style={{height:"200px"}} src={product.productImage} alt="" /></Link>
                <p style={{padding:"10px",backgroundColor:"#F4F2DE",color:"#008080"}}>{product.title}<br/>Price: ${product.price}</p>
                {/* Checks if product id is in inCart array or not and then decides to proceed. */}
                {product._id in wishlist?  <button className="m-2" style={{padding:"0px 60px",backgroundColor:"#F4F2DE"}}><Link to="/products/wishlist"style={{color:"#008080",textDecoration:"none"}}>Go to Wishlist</Link></button>

@@ -56,7 +56,7 @@ const Wishlist = ({setWishlist,wishlist,idsInCartObj,setIdsInCartObj}) => {
             {data? data.filter((product)=>[product._id] in wishlist).map((product)=> (
                       <div className="col-md-3 text-center pb-3">
                     <>
-                      <img style={{height:"200px"}} src={product.productImage} alt="" />
+                    <Link to={`/products/productdetails/${product._id}`}>  <img style={{height:"200px"}} src={product.productImage} alt="" /></Link>
                       <p style={{padding:"10px",backgroundColor:"#F4F2DE",color:"#008080"}}>{product.title}<br/>Price: ${product.price}</p>
                      {product._id in idsInCartObj?  <button style={{padding:"0px 60px",backgroundColor:"#F4F2DE",color:"#008080"}}><Link style={{color:"#008080",textDecoration:"none"}} to="/products/cart">Go to Cart</Link></button>:<button onClick={(id)=>addIdToCartObj(product._id)} style={{padding:"5px 60px",backgroundColor:"#008080",color:"#F4F2DE"}}>Move to Cart</button>} 
 
