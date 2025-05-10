@@ -107,7 +107,7 @@ const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist,placedOrderArr,
             }  
             console.log(JSON.stringify(ordersObj))
             
-            const response = await fetch("http://localhost:3000/products/orderedproducts",{
+            const response = await fetch("https://teal-electronics-backend.vercel.app/products/orderedproducts",{
                 method:"POST",
                 body:JSON.stringify(ordersObj),
                 headers:{
