@@ -12,6 +12,9 @@ const CategoryProducts = ({filteredProducts,setFilteredProducts,setWishlist,wish
     const [alertCart,setAlertCart] = useState(false)
     let [alertWishlist,setAlertWishlist] = useState(false)
     
+    
+
+
     useEffect(()=>{
         setTimeout(() => {
             setAlertCart(false)

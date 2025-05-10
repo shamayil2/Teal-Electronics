@@ -122,9 +122,9 @@ const Cart = ({idsInCartObj,setIdsInCartObj,setWishlist,wishlist,placedOrderArr,
                 console.log(result)
                 setPlacedOrderArr({...idsInCartObj,address:orderAddress})
 
-setIdsInCartObj({})
-setOrderAddress("")
-alert("Order Placed Successfully!")
+                setIdsInCartObj({})
+                setOrderAddress("")
+                alert("Order Placed Successfully!")
             }
 
          }

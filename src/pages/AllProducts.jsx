@@ -8,11 +8,13 @@ const AllProducts = ({ searchedProducts,setSearchedProducts, setWishlist,wishlis
     let [loading, setLoading] = useState(false);
     let [error, setError] = useState(null);
     let [rating,setRating] = useState(0)
-    let [checkedData,setCheckedData] = useState([])
-    let [alertCart,setAlertCart] = useState(false)
-    let [alertWishlist,setAlertWishlist] = useState(false)
-  
     let [sort,setSort] = useState("")
+    let [checkedData,setCheckedData] = useState([])
+    let [filteredProducts,setFilteredProducts] = useState([])
+    let [alertCart,setAlertCart] = useState(false)  
+    let [alertWishlist,setAlertWishlist] = useState(false)
+    
+    
     const filterRef1 = useRef()
     const filterRef2 = useRef()
     const filterRef3 = useRef()
@@ -46,7 +48,8 @@ const AllProducts = ({ searchedProducts,setSearchedProducts, setWishlist,wishlis
   
     
    
-    let [filteredProducts,setFilteredProducts] = useState([])
+        //goal is to have arrays of products returned by individual filters.
+        //then use data to actually extract products matching these filters.
 
     function ratingHandler(event){
         let sortedArr;
@@ -63,23 +66,23 @@ const AllProducts = ({ searchedProducts,setSearchedProducts, setWishlist,wishlis
         setRating(value)
 
     }
-//    Need to understand below filterHandler fully 
-    function filterHandler(event){
+//    Need to understand below checkboxHandler fully 
+    function checkboxHandler(event){
         let sortedArr;
         const checked = event.target.checked
         console.log(checked)
         const value = event.target.value
         if(checked){
-            const checkedArr = [...checkedData,value]
-            let productNew = data.filter((product)=>checkedArr.includes(product.category.name) && product.rating>rating)
-            setCheckedData([...checkedArr])
+            const checkedDataTemp = [...checkedData,value]
+            setCheckedData([...checkedDataTemp])
+            let productsExtracted =     data.filter((product)=>checkedDataTemp.includes(product.category.name) && product.rating>rating)
             if(sort.length>0){
-                sort==="ascending"?  sortedArr = productNew.sort((a,b)=>a.price-b.price): sortedArr = productNew.sort((a,b)=>b.price-a.price)
+                sort==="ascending"?  sortedArr = productsExtracted.sort((a,b)=>a.price-b.price): sortedArr = productsExtracted.sort((a,b)=>b.price-a.price)
                   setFilteredProducts(sortedArr)
               }else{
-                  setFilteredProducts([...productNew])
+                  setFilteredProducts([...productsExtracted])
               }
-            // setFilteredProducts(productNew)
+            // setFilteredProducts(productsExtracted)
         }else{
            
             let filteredIndexes = []
@@ -117,7 +120,7 @@ const AllProducts = ({ searchedProducts,setSearchedProducts, setWishlist,wishlis
         setSort(value)
     }
 
-    function buttonHandler(){
+    function clearBtnHandler(){
         setFilteredProducts([])
         setRating(0)
        
@@ -165,8 +168,11 @@ const AllProducts = ({ searchedProducts,setSearchedProducts, setWishlist,wishlis
     }
 
     return(
+        
         <>
         <Header filteredProducts={searchedProducts} setFilteredProducts={setSearchedProducts}/>
+
+        {/* Adding to Cart and Wishlist Alerts */}
         {alertWishlist && <>
             <div className="bg-info text-light text-center fixed-top " >
             <p style={{marginBottom:"0px"}}>Item Added to Wishlist</p>
@@ -177,23 +183,28 @@ const AllProducts = ({ searchedProducts,setSearchedProducts, setWishlist,wishlis
             <p style={{marginBottom:"0px"}}>Item Added to Cart</p>
         </div>
         </>}
-        {searchedProducts.length>0 && <>
 
-            <SearchResults filteredProducts={searchedProducts}/>
+        {/* Search Results on making a Search */}
+        {searchedProducts.length>0 && 
+        <>
+        <SearchResults filteredProducts={searchedProducts}/>
         </>
         }
            
        {searchedProducts.length===0 && <>
+       {/* Main Content of All Products start here when searchProducts array is empty. */}
         <div className="row">
+            {/* Filters and Sorting Section Column Starts Here */}
             <div className="col-md-3 p-4">
                 <div className="container">
+
                 <h4 style={{color:"#008080"}}>Filter By Category</h4>
-                <input type="checkbox" ref={filterRef1} value="Smartphones" onClick={filterHandler} /> Smartphones<br/>
-                <input type="checkbox" ref={filterRef2} value="Laptops" onClick={filterHandler}/> Laptops<br/>
-                <input type="checkbox" ref={filterRef3} value="Smartwatches" onClick={filterHandler}/> Smartwatches<br/>
-                <input type="checkbox" ref={filterRef4} value="Tablets" onClick={filterHandler}/> Tablets<br/>
-                <input type="checkbox" ref={filterRef5} value="Monitors" onClick={filterHandler}/> Monitors<br/>
-                <input type="checkbox" ref={filterRef6} value="Headphones" onClick={filterHandler}/> Headphones<br/>
+                <input type="checkbox" ref={filterRef1} value="Smartphones" onClick={checkboxHandler} /> Smartphones<br/>
+                <input type="checkbox" ref={filterRef2} value="Laptops" onClick={checkboxHandler}/> Laptops<br/>
+                <input type="checkbox" ref={filterRef3} value="Smartwatches" onClick={checkboxHandler}/> Smartwatches<br/>
+                <input type="checkbox" ref={filterRef4} value="Tablets" onClick={checkboxHandler}/> Tablets<br/>
+                <input type="checkbox" ref={filterRef5} value="Monitors" onClick={checkboxHandler}/> Monitors<br/>
+                <input type="checkbox" ref={filterRef6} value="Headphones" onClick={checkboxHandler}/> Headphones<br/>
                 </div>
                 
                 <div className="py-4 container">
@@ -201,17 +212,18 @@ const AllProducts = ({ searchedProducts,setSearchedProducts, setWishlist,wishlis
                     <input type="range" min="0" max="5" value={rating} onChange={ratingHandler} />
                     <p>Minimum Rating Selected:{rating}</p>
                 </div>
+
                 <div className="py-4 container">
                     <h4 style={{color:"#008080"}}>Sort By Price:</h4>
                     <input type="radio" name="sort" ref={sortRef1} value="ascending" onChange={sortHandler} /> <label htmlFor="">Low To High</label><br/>
                     <input type="radio" name="sort" ref={sortRef2} value="descending" onChange={sortHandler}/> <label htmlFor="">High To Low</label>
                 </div>
-                <div className="py-4 container">
-                <button onClick={buttonHandler} style={{padding:"0px 20px",backgroundColor:"#008080",color:"#F4F2DE"}}>Clear Filters</button>
-                </div>
-                
 
+                <div className="py-4 container">
+                <button onClick={clearBtnHandler} style={{padding:"0px 20px",backgroundColor:"#008080",color:"#F4F2DE"}}>Clear Filters</button>
+                </div>
             </div>
+            {/*Products Section Column Starts Here*/}
             <div className="col-md-9">
             <div className="row container py-4">
             {filteredProducts.length>0 ?filteredProducts.map((product)=>(
