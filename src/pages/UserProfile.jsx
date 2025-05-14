@@ -86,7 +86,7 @@ const UserProfile = ({addressArr,setAddressArr,placedOrderArr,setPlacedOrderArr}
               {orderHistoryBar && data? <>
                 <h2 className="fw-normal mb-4">Order History</h2>
                 <ul >
-                  {data.map((order)=> (
+                  {data.slice().reverse().map((order)=> (
 
                     <li style={{padding:"20px",borderRadius:"20px",backgroundColor:"#F5EEDD",marginBottom:"15px"}}>
                       <h3 className="fw-light mb-4">Address:{order.address}</h3>
