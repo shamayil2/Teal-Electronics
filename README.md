@@ -7,3 +7,4 @@
 - Placing Orders and getting Order History<br>
 - Address management<br>
 
+Link of Hosted App : https://teal-frontend-woad.vercel.app/
